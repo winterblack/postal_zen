@@ -1,10 +1,10 @@
 <nav class="columns sixteen">
   <ul id="main-nav-bar" class="inline container" data-hook>
     <figure id="logo" class="columns four" data-hook><%= logo %></figure>
-    <li id="home-link" class="columns two" data-hook><%= link_to 'home' %></li>
-    <li id="home-link" class="columns two" data-hook><%= link_to 'shop' %></li>
-    <li id="home-link" class="columns two" data-hook><%= link_to 'about' %></li>
-    <li id="home-link" class="columns two" data-hook><%= link_to 'contact' %></li>
+    <li id="home-link" class="columns two" data-hook><%= link_to 'home', '/' %></li>
+    <li id="home-link" class="columns two" data-hook><%= link_to 'shop', '/shop' %></li>
+    <li id="home-link" class="columns two" data-hook><%= link_to 'about', '/about' %></li>
+    <li id="home-link" class="columns two" data-hook><%= link_to 'contact', '/contact' %></li>
     <li id="link-to-cart" class="columns three" data-hook>
       <noscript>
         <%= link_to Spree.t(:cart), '/cart' %>
