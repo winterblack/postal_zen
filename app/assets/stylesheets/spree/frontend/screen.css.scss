@@ -311,6 +311,12 @@ nav #main-nav-bar {
   border-bottom: $default_border;
   padding-bottom: 6px;
 
+  #logo {
+    img {
+      height: 40px;
+    }
+  }
+
   li {
 
     a {
@@ -489,7 +495,6 @@ ul#products {
 
   li {
     text-align: center;
-    font-weight: bold;
     margin-bottom: 20px;
 
     a {
@@ -498,7 +503,9 @@ ul#products {
       &.info {
         height: 35px;
         margin-top: 5px;
+        font-family: 'Roboto Condensed';
         font-size: $product_list_name_font_size;
+        font-weight: 300;
         color: $product_link_text_color;
         border-bottom: $default_border;
         overflow: hidden;
@@ -506,17 +513,18 @@ ul#products {
     }
 
     .product-image {
-      border: $default_border;
-      padding: 5px;
-      min-height: 110px;
-      background-color: $product_background_color;
-
-      &:hover {
-        border-color: $link_text_color;
-      }
+      position: relative;
+      overflow: hidden;
+      padding-bottom:100%;
 
       img {
-        max-width: 100%; /* Fluid images for product */
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        object-fit: cover;
       }
 
     }
@@ -1080,8 +1088,7 @@ table.order-summary {
 /* Tablet Portrait size to standard 960 (devices and browsers) */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   .container {
-    padding-left: 10px;
-    width: 758px;
+    width: 768px;
   }
   footer#footer {
     width: 748px;
@@ -1155,10 +1162,6 @@ table.order-summary {
     vertical-align: baseline;
   }
 
-  figure#logo {
-    text-align: center;
-  }
-
   #link-to-login {
     display: block;
     text-align: center;
@@ -1176,11 +1179,6 @@ table.order-summary {
   ul#products {
     margin-left: 0;
     margin-right: -20px;
-
-    li {
-      width: 133px;
-      margin-right: 10px;
-    }
   }
 
   table#cart-detail, table[data-hook="order_details"] {
@@ -1285,10 +1283,6 @@ table.order-summary {
     th { display: block; }
     tbody tr { display: inline-block; vertical-align: top; }
     td { display: block; min-height: 1.25em; }
-  }
-
-  figure#logo {
-    text-align: center;
   }
 
   #link-to-login {

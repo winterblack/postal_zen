@@ -9,24 +9,18 @@
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
 
-    <div class="container">
+    <%= render :partial => 'shared/header' %>
 
-      <%= render :partial => 'spree/shared/header' %>
-
-      <div id="wrapper" class="row" data-hook>
+      <div class="container">
 
         <%= taxon_breadcrumbs(@taxon) %>
 
-        <%= render :partial => 'spree/shared/sidebar' if content_for? :sidebar %>
-
-        <div id="content" class="columns <%= !content_for?(:sidebar) ? "sixteen" : "twelve omega" %>" data-hook>
+        <div id="content" data-hook>
           <%= flash_messages %>
           <%= yield %>
         </div>
 
         <%= yield :templates %>
-
-      </div>
 
       <%= render :partial => 'spree/shared/footer' %>
 
