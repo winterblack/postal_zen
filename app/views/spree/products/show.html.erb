@@ -36,14 +36,16 @@
             <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
           </div>
 
-          <div id="cart-form" data-hook="cart_form">
-            <%= render :partial => 'cart_form' %>
-          </div>
 
         </div>
 
         <%= render :partial => 'taxons' %>
 
+      </div>
+    </div>
+    <div class="columns sixteen">
+      <div id="cart-form" data-hook="cart_form">
+        <%= render :partial => 'cart_form' %>
       </div>
     </div>
 
