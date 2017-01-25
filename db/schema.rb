@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170124211029) do
+ActiveRecord::Schema.define(version: 20170125004049) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -202,6 +202,7 @@ ActiveRecord::Schema.define(version: 20170124211029) do
     t.decimal  "additional_tax_total", precision: 10, scale: 2, default: "0.0"
     t.decimal  "promo_total",          precision: 10, scale: 2, default: "0.0"
     t.decimal  "included_tax_total",   precision: 10, scale: 2, default: "0.0", null: false
+    t.text     "content"
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
     t.index ["variant_id"], name: "index_spree_line_items_on_variant_id"
   end

@@ -9,7 +9,8 @@
 
     <thead>
       <tr>
-        <th colspan="2"><%= Spree::Product.human_attribute_name(:name) %></th>
+        <th><%= Spree::Product.human_attribute_name(:name) %></th>
+        <th>Content</th>
         <th><%= Spree::LineItem.human_attribute_name(:price) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:quantity) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:total) %></th>
@@ -20,13 +21,13 @@
     <tbody>
       <% order.line_items.each do |item| %>
         <%= content_tag :tr, class: 'line-item', id: "line-item-#{item.id}", data: { line_item_id: item.id } do %>
-          <td class="line-item-image"><%= image_tag item.variant.display_image.attachment(:mini) %></td>
           <td class="line-item-name">
             <%= item.variant.product.name %><br><%= "(" + variant_options(item.variant) + ")" unless item.variant.option_values.empty? %>
             <% if item.variant.sku.present? %>
               <strong><%= Spree::Variant.human_attribute_name(:sku) %>:</strong> <%= item.variant.sku %>
             <% end %>
           </td>
+          <td> <%= item.content %></td>
           <td class="line-item-price align-center"><%= item.single_money.to_html %></td>
           <td class="line-item-qty-show align-center">
             <%= item.quantity %>
