@@ -6,4 +6,7 @@ Rails.application.routes.draw do
 
   # Spree Routes
   mount Spree::Core::Engine, :at => '/shop'
+  Spree::Core::Engine.routes.draw do
+    resources :proof, only: [:show]
+  end
 end
