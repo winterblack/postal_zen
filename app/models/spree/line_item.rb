@@ -8,6 +8,12 @@ module Spree
   # promotion system.
   #
   class LineItem < Spree::Base
+    has_attached_file :cover, styles: { large: '600x600>' },
+                      url: '/spree/line_items/:id/:style/:basename.:extension',
+                      path: ':rails_root/public/spree/line_items/:id/:style/:basename.:extension'
+    validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
+
+
     class CurrencyMismatch < StandardError; end
 
     belongs_to :order, class_name: "Spree::Order", inverse_of: :line_items, touch: true

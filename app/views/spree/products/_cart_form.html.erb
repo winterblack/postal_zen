@@ -1,6 +1,11 @@
-<%= form_for :order, :url => populate_orders_path do |f| %>
+<%= form_for :order, url: populate_orders_path, html: { multipart: true } do |f| %>
   <div id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <%= text_area_tag 'content', nil, id: 'rich-text-editor' %>
+    <p>
+      <%= file_field_tag :cover %>
+    </p>
+    <p>
+      <%= text_area_tag 'content', nil, id: 'rich-text-editor' %>
+    </p>
     <script>
       $('#rich-text-editor').froalaEditor()
     </script>

@@ -46,13 +46,14 @@ module Spree
       variant  = Spree::Variant.find(params[:variant_id])
       quantity = params[:quantity].to_i
       content = params[:content]
+      cover = params[:cover]
       # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
       if !quantity.between?(1, 2_147_483_647)
         @order.errors.add(:base, Spree.t(:please_enter_reasonable_quantity))
       end
 
       begin
-        @line_item = @order.contents.add(variant, quantity, content)
+        @line_item = @order.contents.add(variant, quantity, content, cover)
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end

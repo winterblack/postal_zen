@@ -19,8 +19,8 @@ module Spree
     #       stock_location_id: The stock location to source from
     #
     # @return [Spree::LineItem]
-    def add(variant, quantity, content, options = {})
-      line_item = add_to_line_item(variant, quantity, content, options)
+    def add(variant, quantity, content, cover, options = {})
+      line_item = add_to_line_item(variant, quantity, content, cover, options)
       after_add_or_remove(line_item, options)
     end
 
@@ -87,11 +87,12 @@ module Spree
       order_updater.update
     end
 
-    def add_to_line_item(variant, quantity, content, options = {})
+    def add_to_line_item(variant, quantity, content, cover, options = {})
       line_item = order.line_items.new(
         quantity: 0,
         variant: variant,
-        content: content
+        content: content,
+        cover: cover
       )
 
       line_item.quantity = quantity.to_i
