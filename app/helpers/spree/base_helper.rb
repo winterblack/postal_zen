@@ -52,7 +52,7 @@ module Spree
     end
 
     def logo(image_path = Spree::Config[:logo])
-      link_to image_tag(image_path), spree.root_path
+      link_to image_tag(image_path), '/'
     end
 
     def flash_messages(opts = {})

@@ -1,0 +1,124 @@
+/* ============================================================
+  PRIMARY STRUCTURE
+============================================================ */
+.home {
+  margin-top: -20px;
+  overflow: auto;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+/* ============================================================
+  SECTIONS
+============================================================ */
+.back {
+  height: 100%;
+  background-image: linear-gradient(black, transparent);
+}
+i.fa {
+  font-size: 75px;
+  color: #00ADEE;
+}
+i.black {
+  color: black;
+}
+section.module:last-child {
+  margin-bottom: 0;
+}
+section.module button.home-button {
+  font-size: 16px;
+  margin: 24px;
+  padding: 12px 24px;
+}
+section.module h2 {
+  padding-bottom: 40px;
+  font-size: 30px;
+}
+section.module h5 {
+  margin: 10px 0;
+}
+section.module p {
+  margin-bottom: 40px;
+  font-weight: normal;
+  font-style: italic;
+}
+section.module p:last-child {
+  margin-bottom: 0;
+}
+section.module.content {
+  padding: 40px 0;
+}
+section.module.content.testimonials {
+  background: #e5f3f8;
+  padding: 100px;
+  line-height: normal;
+}
+section.module.content.testimonials p {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+section.module.content.testimonials span {
+  font-size: 16px;
+}
+section.module.parallax {
+  height: 50vh;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+section.module.parallax h1 {
+  padding: 75px 0;
+  color: white;
+  font-size: 30px;
+}
+section.module.parallax h2 {
+  padding: 75px 0;
+  color: white;
+  font-family: 'Roboto Condensed';
+  font-size: 24px;
+  text-shadow: 0 0 10px black;
+}
+section.module.parallax-home {
+  background-color: transparent;
+  background-image: url("home.png");
+}
+
+@media all and (min-width: 480px) {
+  section.module h2 {
+    font-size: 42px;
+  }
+  section.module p {
+    font-size: 20px;
+  }
+  section.module.content.testimonials p {
+    font-size: 40px;
+  }
+}
+@media all and (min-width: 770px) {
+  section.module h2 {
+    font-size: 42px;
+  }
+  section.module p {
+    font-size: 20px;
+  }
+  section.module.content.testimonials p {
+    font-size: 40px;
+  }
+  section.module.parallax h1 {
+    font-size: 45px;
+  }
+  section.module.parallax h2 {
+    font-size: 30px;
+  }
+}
+@media all and (min-width: 960px) {
+  section.module.parallax h1 {
+    font-size: 60px;
+  }
+  section.module.parallax h2 {
+    font-size: 45px;
+  }
+}
