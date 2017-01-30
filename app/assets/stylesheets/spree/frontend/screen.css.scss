@@ -311,10 +311,8 @@ nav #main-nav-bar {
   border-bottom: $default_border;
   padding-bottom: 6px;
 
-  #logo {
-    img {
-      height: 40px;
-    }
+  #logo img {
+    height: 40px;
   }
 
   li {

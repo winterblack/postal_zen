@@ -1,0 +1,20 @@
+<nav class="columns sixteen">
+  <ul id="main-nav-bar" class="inline container" data-hook>
+    <figure id="logo" class="columns four" data-hook><%= logo %></figure>
+    <li id="link-to-cart" class="columns three" data-hook>
+      <noscript>
+        <%= link_to Spree.t(:cart), '/cart' %>
+      </noscript>
+    </li>
+    <script>Spree.fetch_cart('<%= j spree.cart_link_url %>')</script>
+  </ul>
+</nav>
+<nav class="columns sixteen">
+  <ul id="main-nav-bar" class="inline container" data-hook>
+    <li class="columns two" data-hook><%= link_to 'home', '/' %></li>
+    <li class="columns two" data-hook><%= link_to 'shop', '/shop' %></li>
+    <li class="columns two" data-hook><%= link_to 'about', '/about' %></li>
+    <li class="columns two" data-hook><%= link_to 'contact', '/contact' %></li>
+    <li id="auth" data-hook></li>
+  </ul>
+</nav>
