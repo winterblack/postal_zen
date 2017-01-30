@@ -7,7 +7,10 @@
       <%= text_area_tag 'content', nil, id: 'rich-text-editor' %>
     </p>
     <script>
-      $('#rich-text-editor').froalaEditor()
+      $('#rich-text-editor').froalaEditor({
+        imageManagerPreloader: '/image_manager/loading.gif',
+        imageManagerLoadURL: '/image_manager',
+      })
     </script>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
