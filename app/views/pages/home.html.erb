@@ -1,9 +1,9 @@
 <div class="home">
-  <section class="module parallax parallax-home">
-    <div class="back">
+  <section id="home" class="module parallax parallax-home">
+    <div class="dark-back">
       <div class="container">
         <div class="intro">
-          <h1>We Deliver Hassle Free Mail</h1>
+          <h1>We deliver hassle free mail</h1>
           <div class="intro-bottom">
             <button class="home-button">Order Now</button>
             <h2>100% Satisfaction Guarantee</h2>
@@ -29,44 +29,80 @@
       </div>
     </div>
   </section>
-  <section class="module content testimonials">
+  <section class="module content testimonials blue-back">
     <div class="container">
       <p>"Ed and PostalZen provide a handy and convenient alternative for folks who lack either the time or desire to wait in long lines and bureaucracy. Check it out!"</p>
       <span>Chris - California</span>
     </div>
-  </div>
-</section>
-<section class="module content">
-  <div class="container">
-    <h2>So how does it work?</h2>
-    <div class="one-third column">
-      <i class="fa black fa-desktop" aria-hidden="true"></i>
-      <h5>Step 1</h5>
-      <p>Complete Our Simple Form and Select the Date You Would Like Us to Mail Your Custom Card or Letter.</p>
-    </div>
-    <div class="one-third column">
-      <i class="fa black fa-pencil-square-o" aria-hidden="true"></i>
-      <h5>Step 2</h5>
-      <p>Add the Text, a Photo, and Customize the Details of Your Letter or Card. (Or Ask Us To Do It For You)</p>
-    </div>
-    <div class="one-third column">
-      <i class="fa black fa-truck" aria-hidden="true"></i>
-      <h5>Step 3</h5>
-      <p>Submit Your Order and We'll Mail Your Item Anywhere in The U.S. (First Class Mail 3-7 Days)</p>
-    </div>
-  </div>
-</section>
-<section class="module parallax parallax-home">
-  <div class="back">
+  </section>
+  <section class="module content">
     <div class="container">
-      <h1>Like what you see?</h1>
-      <button class="home-button">Try Us Free</button>
+      <h2>So how does it work?</h2>
+      <div class="one-third column">
+        <i class="fa black fa-desktop" aria-hidden="true"></i>
+        <h5>Step 1</h5>
+        <p>Complete Our Simple Form and Select the Date You Would Like Us to Mail Your Custom Card or Letter.</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa black fa-pencil-square-o" aria-hidden="true"></i>
+        <h5>Step 2</h5>
+        <p>Add the Text, a Photo, and Customize the Details of Your Letter or Card. (Or Ask Us To Do It For You)</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa black fa-truck" aria-hidden="true"></i>
+        <h5>Step 3</h5>
+        <p>Submit Your Order and We'll Mail Your Item Anywhere in The U.S. (First Class Mail 3-7 Days)</p>
+      </div>
     </div>
-  </div>
-</section>
-<section class="module content">
-  <div class="container">
-    <h2>As Seen On</h2>
-  </div>
-</section>
+  </section>
+  <section class="module parallax parallax-home">
+    <div class="dark-back">
+      <div class="container">
+        <h1>Like what you see?</h1>
+        <button class="home-button">Try Us Free</button>
+      </div>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>As Seen On</h2>
+      <ul id="as-seen-on">
+        <li class="columns four"><%= image_tag 'as_seen_on/alaska_startups.png', class: 'light' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/ces.png' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/mixergy.jpg', class: 'lighter' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/patriot_boot_camp.png', class: 'lighter' %></li>
+      </ul>
+    </div>
+  </section>
+  <section id="about" class="module parallax parallax-about">
+    <div class="light-back">
+      <div class="container">
+        <h1>About us</h1>
+        <p>We built PostalZen with you in mind!</p>
+      </div>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2 class="left">Desperate times</h2>
+      <p class="twelve columns justify">My name is Ed and I hate licking envelopes. A few years ago, I was in the middle east and I needed to send signed documents home quickly. I scoured the internet to find a truly simple solution and to my surprise there wasn't a really good fit. There must be a better way... Well we found it. Since our humble beginnings we've grown to help even more people, but at the heart of it all we're just here to provide the most convenient mailing service. Look around, I promise there isn't a more simple solution.</p>
+    </div>
+  </section>
+  <section class="module content blue-back">
+    <div class="container">
+      <h2 class="right">Why we're here</h2>
+      <p class="offset-by-four twelve columns justify">Our service is designed to be a simple, hassle-free and secure experience. I am glad that you've found us and we are dedicated to living up to your expectations. The core values I gained in the military are at the heart of PostalZen. We deliver a convenient solution for busy professionals, military personnel and those visiting or living abroad. You are our audience and we will do everything we can to deliver. PostalZen is veteran owned and we are dedicated to providing exceptional service to our heroes.</p>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>Meet our founder</h2>
+      <div class="offset-by-four eight columns">
+        <%= image_tag 'ed.png' %>
+        <h3>Ed Reifle</h3>
+        <h5>Founder</h5>
+        <p >I'm dedicated to delivering a great service.  Don't hesitate to reach our with any questions, concerns or ideas.  In fact, whatever the reason feel free...</p>
+      </div>
+    </div>
+  </section>
 </div>
