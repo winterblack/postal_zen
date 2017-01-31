@@ -22,3 +22,6 @@
 
 # Ignore uploaded files
 /public/spree
+
+# Ignore application configuration
+/config/application.yml

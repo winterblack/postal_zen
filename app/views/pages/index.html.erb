@@ -29,7 +29,7 @@
       </div>
     </div>
   </section>
-  <section class="module content testimonials blue-back">
+  <section class="module content testimonials back-1">
     <div class="container">
       <p>"Ed and PostalZen provide a handy and convenient alternative for folks who lack either the time or desire to wait in long lines and bureaucracy. Check it out!"</p>
       <span>Chris - California</span>
@@ -88,7 +88,7 @@
       <p class="twelve columns justify">My name is Ed and I hate licking envelopes. A few years ago, I was in the middle east and I needed to send signed documents home quickly. I scoured the internet to find a truly simple solution and to my surprise there wasn't a really good fit. There must be a better way... Well we found it. Since our humble beginnings we've grown to help even more people, but at the heart of it all we're just here to provide the most convenient mailing service. Look around, I promise there isn't a more simple solution.</p>
     </div>
   </section>
-  <section class="module content blue-back">
+  <section class="module content back-1 right">
     <div class="container">
       <h2 class="right">Why we're here</h2>
       <p class="offset-by-four twelve columns justify">Our service is designed to be a simple, hassle-free and secure experience. I am glad that you've found us and we are dedicated to living up to your expectations. The core values I gained in the military are at the heart of PostalZen. We deliver a convenient solution for busy professionals, military personnel and those visiting or living abroad. You are our audience and we will do everything we can to deliver. PostalZen is veteran owned and we are dedicated to providing exceptional service to our heroes.</p>
@@ -104,5 +104,44 @@
         <p >I'm dedicated to delivering a great service.  Don't hesitate to reach our with any questions, concerns or ideas.  In fact, whatever the reason feel free...</p>
       </div>
     </div>
+  </section>
+  <section id="contact" class="module content back-2">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>How can we help you?</p>
+      <div id="map"></div>
+      <script>
+        console.log('running script')
+        let center = { lat: 38.627222, lng: -90.197778 }
+        let map = new google.maps.Map(document.getElementById('map'), {
+          center,
+          zoom: 11,
+          scrollwheel: false,
+          mapTypeControl: false,
+          zoomControl: false,
+          streetViewControl: false
+        })
+        new google.maps.Marker({ position: center, map })
+      </script>
+      <div class="four columns sub-section">
+        <i class="fa black fa-map-marker" aria-hidden="true"></i>
+        <p>Contact us anytime, we are dedicated to providing great support.</p>
+      </div>
+      <div class="four columns sub-section">
+        <i class="fa black fa-mobile" aria-hidden="true"></i>
+        <p>Our Number:<br>
+          877-560-5335<br>
+          Feel free to give us a call. Our hours are Monday through Friday 8 A.M. to 5 P.M. PST</p>
+      </div>
+      <div class="eight columns">
+        <%= form_tag :contact, id: 'contact-us' %>
+        <%= label_tag :name %>
+        <%= text_field_tag :name %>
+        <%= label_tag :email %>
+        <%= text_field_tag :email %>
+        <%= label_tag :message %>
+        <%= text_area_tag :message %>
+        <%= submit_tag :send %>
+      </div>
   </section>
 </div>
