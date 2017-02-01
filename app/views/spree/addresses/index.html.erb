@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Spree Addresses</h1>
+    <% @addresses.each do |address| %>
+        <div class="columns alpha four address-book">
+          <fieldset>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+            <tr>
+              <td><%= link_to 'Show', address %></td>
+              <td><%= link_to 'Edit', edit_address_path(address) %></td>
+              <td><%= link_to 'Destroy', address, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          </tbody>
+        </table>
+            <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+        </div>
+    <% end %>
+
+<br>
+
+<%= link_to 'New Spree Address', new_address_path %>

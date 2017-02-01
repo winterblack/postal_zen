@@ -158,9 +158,9 @@ module Spree
     # This is set in order to preserve immutability of Addresses. Use #dup to create
     # new records as required, but it probably won't be required as often as you think.
     # Since addresses do not change, you won't accidentally alter historical data.
-    def readonly?
-      persisted?
-    end
+    # def readonly?
+    #   persisted?
+    # end
 
     # @param iso [String] 2 letter Country ISO
     # @return [Country] setter that sets self.country to the Country with a matching 2 letter iso

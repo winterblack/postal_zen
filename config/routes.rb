@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   mount Spree::Core::Engine, :at => '/shop'
   Spree::Core::Engine.routes.draw do
     resources :proof, only: [:show]
+    resources :addresses
   end
 end
