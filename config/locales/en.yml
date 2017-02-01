@@ -113,13 +113,13 @@ en:
         state: Billing address state
         zipcode: Billing address zipcode
       spree/order/ship_address:
-        address1: Shipping address street
-        city: Shipping address city
-        firstname: Shipping address first name
-        lastname: Shipping address last name
-        phone: Shipping address phone
-        state: Shipping address state
-        zipcode: Shipping address zipcode
+        address1: Return address street
+        city: Return address city
+        firstname: Return address first name
+        lastname: Return address last name
+        phone: Return address phone
+        state: Return address state
+        zipcode: Return address zipcode
       spree/payment:
         amount: Amount
         created_at: Date/Time
@@ -1757,7 +1757,7 @@ en:
     settings: Settings
     ship: ship
     ship_address: Ship Address
-    ship_address_required: Valid shipping address required
+    ship_address_required: Valid Return address required
     ship_stock_transfer:
       confirm: "Are you sure you want to mark this stock transfer as shipping?\n\nYou will no longer be able to make changes to the stock transfer"
     ship_total: Ship Total
@@ -1790,7 +1790,7 @@ en:
     shipments: Shipments
     shipped: Shipped
     shipping: Shipping
-    shipping_address: Shipping Address
+    shipping_address: Return address
     shipping_categories: Shipping Categories
     shipping_category: Shipping Category
     shipping_flat_rate_per_item: Flat rate per package item
