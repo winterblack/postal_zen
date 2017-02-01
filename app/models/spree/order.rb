@@ -699,10 +699,10 @@ module Spree
     def assign_default_addresses!
       if user
         # this is one of 2 places still using User#bill_address
-        self.bill_address ||= user.bill_address if user.bill_address.try!(:valid?)
+        self.bill_address = user.bill_address if user.bill_address.try!(:valid?)
         # Skip setting ship address if order doesn't have a delivery checkout step
         # to avoid triggering validations on shipping address
-        self.ship_address ||= user.ship_address if user.ship_address.try!(:valid?) && checkout_steps.include?("delivery")
+        self.ship_address = user.ship_address if user.ship_address.try!(:valid?) && checkout_steps.include?("delivery")
       end
     end
 

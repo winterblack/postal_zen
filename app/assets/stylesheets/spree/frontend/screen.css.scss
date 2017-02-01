@@ -771,7 +771,7 @@ ul#products {
   }
 }
 
-#billing {
+#billing, #shipping {
   input[type="text"], input[type="email"],
   input[type="tel"], input[type="number"],
   select, textarea {
@@ -1027,6 +1027,10 @@ div[data-hook="inside_cart_form"] {
 /*--------------------------------------*/
 /* Account
 /*--------------------------------------*/
+.account-my-orders {
+  margin-top: 20px;
+}
+
 #existing-customer, #new-customer, #forgot-password {
   h6 {
     text-transform: uppercase;
