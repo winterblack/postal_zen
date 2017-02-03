@@ -1034,6 +1034,9 @@ div[data-hook="inside_cart_form"] {
 .address {
   min-height: 126px;
   padding: 10px;
+  .fn, .org {
+    font-weight: bold;
+  }
 }
 
 .address-book {
