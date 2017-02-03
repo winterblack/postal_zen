@@ -1,12 +1,12 @@
 <% address_id = address_type.chars.first %>
 <div class="inner" data-hook=<%="#{address_type}_inner" %>>
   <p class="field" id=<%="#{address_id}firstname" %>>
-    <%= form.label :firstname, Spree.t(:first_name) %><span class="required">*</span><br />
+    <%= form.label :firstname, Spree.t(:first_name) %><br />
     <%= form.text_field :firstname, class: 'required', autocomplete: address_type + ' given-name' %>
   </p>
 
   <p class="field" id=<%="#{address_id}lastname" %>>
-    <%= form.label :lastname, Spree.t(:last_name) %><span class="required">*</span><br />
+    <%= form.label :lastname, Spree.t(:last_name) %><br />
     <%= form.text_field :lastname, autocomplete: address_type + ' family-name' %>
   </p>
 
@@ -47,7 +47,7 @@
       <% have_states = !address.country.states.empty? %>
       <%= form.label :state, Spree.t(:state) %><span class='required' id=<%="#{address_id}state-required"%>>*</span><br/>
 
-      <span class="js-address-fields" style="display: none;">
+      <span class="field">
         <%=
           form.collection_select(
             :state_id, address.country.states, :id, :name,

@@ -1,5 +1,6 @@
 <%= form_for(@address) do |f| %>
-  <%= render :partial => 'spree/address/form', :locals => { form: f, address_type: 'shipping', address: @address } %>
+  <%= render :partial => 'spree/address/form', :locals => { form: f,
+    address_type: 'shipping', address: @address } %>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -7,14 +7,9 @@ class Spree::AddressesController < Spree::StoreController
     @addresses = spree_current_user.addresses
   end
 
-  # GET /spree/addresses/1
-  # GET /spree/addresses/1.json
-  def show
-  end
-
   # GET /spree/addresses/new
   def new
-    @address = Spree::Address.new
+    @address = Spree::Address.build_default
   end
 
   # GET /spree/addresses/1/edit
@@ -24,15 +19,17 @@ class Spree::AddressesController < Spree::StoreController
   # POST /spree/addresses
   # POST /spree/addresses.json
   def create
-    @address = Spree::Address.new(address_params)
-
-    respond_to do |format|
-      if @address.save
-        format.html { redirect_to @address, notice: 'Address was successfully created.' }
-        format.json { render :show, status: :created, location: @address }
-      else
-        format.html { render :new }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+    if params[:commit] == 'Import Contacts'
+      import_contacts
+    else
+      respond_to do |format|
+        if create_address address_params
+          format.html { redirect_to addresses_url, notice: 'Address was successfully created.' }
+          format.json { render :show, status: :created, location: @address }
+        else
+          format.html { render :new }
+          format.json { render json: @address.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -42,7 +39,7 @@ class Spree::AddressesController < Spree::StoreController
   def update
     respond_to do |format|
       if @address.update(address_params)
-        format.html { redirect_to @address, notice: 'Address was successfully updated.' }
+        format.html { redirect_to addresses_url, notice: 'Address was successfully updated.' }
         format.json { render :show, status: :ok, location: @address }
       else
         format.html { render :edit }
@@ -62,13 +59,56 @@ class Spree::AddressesController < Spree::StoreController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_address
-      @address = Spree::Address.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def address_params
-      params.fetch(:address, {})
+  def create_address address
+    @address = Spree::Address.new(address)
+    if @address.save
+      Spree::UserAddress.create(user_id: spree_current_user.id, address_id: @address.id)
+      return true
     end
+  end
+
+  def lacrm_params
+    lacrm_auth.to_h.merge({ Function: 'SearchContacts' })
+  end
+
+  def import_contacts
+    JSON.parse(lacrm_response)["Result"].each do |contact|
+      contact['Address'].each do |address|
+        country_id = find_country(address['Country']).try(:id) || 232
+        state_id = find_state(address['State'], country_id).try(:id)
+        create_address({
+          firstname: contact['FirstName'],
+          lastname: contact['LastName'],
+          address1: address['Street'],
+          address2: '',
+          city: address['City'],
+          zipcode: address['Zip'],
+          phone: contact['Phone'][0]['Text'],
+          alternative_phone: '',
+          company: contact['CompanyName'],
+          country_id: country_id,
+          state_id: state_id
+        })
+      end
+    end
+    redirect_to addresses_url
+  end
+
+  def find_state state, country_id
+    Spree::State.find_by(name: state, country_id: country_id) || Spree::State.find_by(abbr: state, country_id: country_id)
+  end
+
+  def find_country country
+    Spree::Country.find_by(name: country) || Spree::Country.find_by(iso: country) || Spree::Country.find_by(iso3: country)
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_address
+    @address = Spree::Address.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def address_params
+    params.require(:address).permit(permitted_address_attributes)
+  end
 end
