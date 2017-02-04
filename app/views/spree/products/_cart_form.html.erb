@@ -13,6 +13,19 @@
       })
     </script>
 
+    <% @addresses.each do |address| %>
+      <% next if address == spree_current_user.bill_address %>
+      <% next if address == spree_current_user.ship_address %>
+      <div class="columns alpha four address-book">
+        <fieldset>
+          <span class="right">
+            <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
+          </span>
+          <br>
+          <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+      </div>
+    <% end %>
+
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
       <div id="product-variants" class="columns five alpha">
         <h6 class="product-section-title"><%= Spree.t(:variants) %></h6>

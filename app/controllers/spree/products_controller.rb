@@ -15,6 +15,7 @@ module Spree
     end
 
     def show
+      @addresses = spree_current_user.addresses
       @variants = @product.
         variants_including_master.
         display_includes.
