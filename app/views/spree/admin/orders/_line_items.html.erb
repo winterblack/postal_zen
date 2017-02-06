@@ -10,8 +10,6 @@
     <thead>
       <tr>
         <th><%= Spree::Product.human_attribute_name(:name) %></th>
-        <th>Content</th>
-        <th>Cover</th>
         <th><%= Spree::LineItem.human_attribute_name(:price) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:quantity) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:total) %></th>
@@ -28,8 +26,6 @@
               <strong><%= Spree::Variant.human_attribute_name(:sku) %>:</strong> <%= item.variant.sku %>
             <% end %>
           </td>
-          <td><%= item.content %></td>
-          <td><%= image_tag item.cover.url(:large) %></td>
           <td class="line-item-price align-center"><%= item.single_money.to_html %></td>
           <td class="line-item-qty-show align-center">
             <%= item.quantity %>
@@ -38,6 +34,9 @@
             <%= number_field_tag :quantity, item.quantity, :min => 0, :class => "line_item_quantity", :size => 5 %>
           </td>
           <td class="line-item-total align-center"><%= line_item_shipment_price(item, item.quantity) %></td>
+          <td class="actions">
+            <%= link_to '', admin_line_item_path(item.id), class: 'view-line-item fa fa-eye no-text with-tip', title: 'View' %>
+          </td>
           <td class="cart-line-item-delete actions" data-hook="cart_line_item_delete">
             <% if can? :update, item %>
               <%= link_to '', '#', :class => 'save-line-item fa fa-ok no-text with-tip',       :title => Spree.t('actions.save') %>
