@@ -15,7 +15,11 @@ module Spree
     end
 
     def show
-      @addresses = spree_current_user.addresses
+      if @user = spree_current_user
+        @addresses = @user.addresses
+      else
+        @address = Spree::Address.build_default
+      end
       @variants = @product.
         variants_including_master.
         display_includes.

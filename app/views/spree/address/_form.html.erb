@@ -36,9 +36,7 @@
     <%= form.label :country_id, Spree.t(:country) %><span class="required">*</span><br />
     <span id=<%="#{address_id}country-selection" %>>
       <%= form.collection_select :country_id, available_countries, :id, :name, {},
-          class: 'required',
-          autocomplete: address_type + ' country-name'
-        %>
+          class: 'required', autocomplete: address_type + ' country-name' %>
     </span>
   </p>
 

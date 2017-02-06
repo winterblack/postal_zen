@@ -62,9 +62,11 @@ class Spree::AddressesController < Spree::StoreController
 
   def create_address address
     @address = Spree::Address.new(address)
-    if @address.save
+    if spree_current_user && @address.save
       Spree::UserAddress.create(user_id: spree_current_user.id, address_id: @address.id)
-      return true
+      true
+    elsif @address.save
+      true
     end
   end
 

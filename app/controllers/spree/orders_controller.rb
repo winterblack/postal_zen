@@ -47,7 +47,16 @@ module Spree
       quantity = params[:quantity].to_i
       content = params[:content]
       cover = params[:cover]
-      address_ids = params[:address_ids]
+      if address_params = order_params[:address_attributes]
+        address = Spree::Address.create(address_params)
+        address_ids = [address.id]
+      else
+        address_ids = params[:address_ids]
+      end
+      if !address_ids
+        flash[:error] = "Please select an address"
+        return redirect_to product_path(variant.product.slug)
+      end
       # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
       if !quantity.between?(1, 2_147_483_647)
         @order.errors.add(:base, Spree.t(:please_enter_reasonable_quantity))
@@ -108,7 +117,7 @@ module Spree
 
     def order_params
       if params[:order]
-        params[:order].permit(*permitted_order_attributes)
+        params.require(:order).permit(:address_attributes=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}])
       else
         {}
       end

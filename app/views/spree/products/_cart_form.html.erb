@@ -13,17 +13,24 @@
       })
     </script>
 
-    <% @addresses.each do |address| %>
-      <% next if address == spree_current_user.bill_address %>
-      <% next if address == spree_current_user.ship_address %>
-      <div class="columns alpha four address-book">
-        <fieldset>
-          <span class="right">
-            <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
-          </span>
-          <br>
-          <%= render :partial => 'spree/shared/address', locals: { address: address } %>
-      </div>
+    <% if @user %>
+      <% @addresses.each do |address| %>
+        <% next if address == @user.bill_address %>
+        <% next if address == @user.ship_address %>
+        <div class="columns omega four address-book">
+          <fieldset>
+            <span class="right">
+              <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
+            </span>
+            <br>
+            <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= f.fields_for('address_attributes', @address) do |form| %>
+        <%= render :partial => 'spree/address/form', :locals => { form: form,
+          address_type: 'shipping', address: @address } %>
+      <% end %>
     <% end %>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
