@@ -97,13 +97,6 @@ class Spree::AddressesController < Spree::StoreController
     redirect_to addresses_url
   end
 
-  def find_state state, country_id
-    Spree::State.find_by(name: state, country_id: country_id) || Spree::State.find_by(abbr: state, country_id: country_id)
-  end
-
-  def find_country country
-    Spree::Country.find_by(name: country) || Spree::Country.find_by(iso: country) || Spree::Country.find_by(iso3: country)
-  end
   # Use callbacks to share common setup or constraints between actions.
   def set_address
     @address = Spree::Address.find(params[:id])

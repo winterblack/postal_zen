@@ -47,16 +47,22 @@ module Spree
       quantity = params[:quantity].to_i
       content = params[:content]
       cover = params[:cover]
-      if address_params = order_params[:address_attributes]
+
+      # Get Address ids
+      if addresses = params[:addresses]
+        address_ids = import_csv(addresses)
+      elsif address_params = order_params[:address_attributes]
         address = Spree::Address.create(address_params)
         address_ids = [address.id]
       else
         address_ids = params[:address_ids]
       end
+
       if !address_ids
         flash[:error] = "Please select an address"
         return redirect_to product_path(variant.product.slug)
       end
+
       # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
       if !quantity.between?(1, 2_147_483_647)
         @order.errors.add(:base, Spree.t(:please_enter_reasonable_quantity))
@@ -79,6 +85,23 @@ module Spree
           end
         end
       end
+    end
+
+    def import_csv(addresses)
+      address_ids = []
+      CSV.foreach(addresses.path, headers: true) do |row|
+        address_attributes = row.to_hash
+        # Find the country and state ids
+        country = find_country(address_attributes['country']) || Country.find(232)
+        state = find_state(address_attributes['state'], country.id)
+        address_attributes[:country_id] = country.id
+        address_attributes[:state_id] = state.id
+        address_attributes.except!('country', 'state')
+        # Create address and add its id to array
+        address = Spree::Address.create! address_attributes
+        address_ids << address.id
+      end
+      address_ids
     end
 
     def populate_redirect

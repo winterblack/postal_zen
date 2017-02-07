@@ -1,8 +1,10 @@
 <%= form_for :order, url: populate_orders_path, html: { multipart: true } do |f| %>
   <div id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <h4>Upload A Cover</h4>
     <p>
       <%= file_field_tag :cover %>
     </p>
+    <h4>Write A Letter</h4>
     <p>
       <%= text_area_tag 'content', nil, id: 'rich-text-editor' %>
     </p>
@@ -12,7 +14,10 @@
         imageManagerLoadURL: '/image_manager',
       })
     </script>
-
+    <h4>Upload Addresses</h4>
+    <p>
+      <%= file_field_tag :addresses %>
+    </p>
     <% if @user %>
       <% @addresses.each do |address| %>
         <% next if address == @user.bill_address %>
