@@ -4,6 +4,7 @@ module Spree
     respond_to :html
 
     def index
+      @user = spree_current_user || Spree::User.new
       @searcher = build_searcher(params.merge(include_images: true))
       @products = @searcher.retrieve_products
       @taxonomies = Spree::Taxonomy.includes(root: :children)

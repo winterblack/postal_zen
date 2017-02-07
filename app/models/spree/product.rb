@@ -103,6 +103,15 @@ module Spree
     self.whitelisted_ransackable_associations = %w[stores variants_including_master master variants]
     self.whitelisted_ransackable_attributes = %w[slug]
 
+    def display_for?(user)
+      return true if user.admin?
+      display = property 'display'
+      if display == 'business'
+        return false unless user.has_spree_role? 'business'
+      end
+      true
+    end
+
     # @return [Boolean] true if there are any variants
     def has_variants?
       variants.any?

@@ -12,18 +12,20 @@
 <% if products.any? %>
   <ul id="products" class="inline product-listing" data-hook>
     <% products.each do |product| %>
-      <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
-      <li id="product_<%= product.id %>" class="one-third column" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
-        <% cache(@taxon.present? ? [I18n.locale, current_pricing_options, @taxon, product] : [I18n.locale, current_pricing_options, product]) do %>
-          <div class="product-image">
-            <%= link_to image_tag(product.display_image.attachment(:product), itemprop: "image"), url, itemprop: 'url' %>
-          </div>
-          <h3>
-            <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
-          </h3>
-          <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span class="price selling" itemprop="price"><%= display_price(product) %></span>
-          </span>
+      <% if product.display_for? @user %>
+        <% url = spree.product_path(product, taxon_id: @taxon.try(:id)) %>
+        <li id="product_<%= product.id %>" class="one-third column" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
+          <% cache(@taxon.present? ? [I18n.locale, current_pricing_options, @taxon, product] : [I18n.locale, current_pricing_options, product]) do %>
+            <div class="product-image">
+              <%= link_to image_tag(product.display_image.attachment(:product), itemprop: "image"), url, itemprop: 'url' %>
+            </div>
+            <h3>
+              <%= link_to truncate(product.name, length: 50), url, class: 'info', itemprop: "name", title: product.name %>
+            </h3>
+            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+              <span class="price selling" itemprop="price"><%= display_price(product) %></span>
+            </span>
+          <% end %>
         <% end %>
       </li>
     <% end %>
