@@ -44,7 +44,6 @@ module Spree
     def populate
       @order   = current_order(create_order_if_necessary: true)
       variant  = Spree::Variant.find(params[:variant_id])
-      quantity = params[:quantity].to_i
       content = params[:content]
       cover = params[:cover]
 
@@ -58,6 +57,7 @@ module Spree
         address_ids = params[:address_ids]
       end
 
+      quantity = address_ids.count
       if !address_ids
         flash[:error] = "Please select an address"
         return redirect_to product_path(variant.product.slug)

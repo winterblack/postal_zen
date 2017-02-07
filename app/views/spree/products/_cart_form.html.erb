@@ -18,7 +18,7 @@
     <p>
       <%= file_field_tag :addresses %>
     </p>
-    <% if @user %>
+    <% if @addresses.any? %>
       <% @addresses.each do |address| %>
         <% next if address == @user.bill_address %>
         <% next if address == @user.ship_address %>
@@ -31,11 +31,11 @@
             <%= render :partial => 'spree/shared/address', locals: { address: address } %>
         </div>
       <% end %>
-    <% else %>
-      <%= f.fields_for('address_attributes', @address) do |form| %>
-        <%= render :partial => 'spree/address/form', :locals => { form: form,
-          address_type: 'shipping', address: @address } %>
-      <% end %>
+    <% end %>
+
+    <%= f.fields_for('address_attributes', @address) do |form| %>
+      <%= render :partial => 'spree/address/form', :locals => { form: form,
+        address_type: 'shipping', address: @address } %>
     <% end %>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
@@ -86,7 +86,6 @@
         </div>
 
         <div class="add-to-cart">
-          <%= number_field_tag :quantity, 1, :class => 'title', :min => 1 %>
           <%= button_tag :class => 'large primary', :id => 'add-to-cart-button', :type => :submit do %>
             <%= Spree.t(:add_to_cart) %>
           <% end %>

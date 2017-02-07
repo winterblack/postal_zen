@@ -239,7 +239,7 @@ button {
   }
 }
 
-input[type="checkbox"], label {
+input[type="checkbox"] {
   vertical-align: middle;
 }
 
@@ -974,14 +974,24 @@ table#cart-detail {
   width: 100%;
   border-collapse: separate;
 
+  thead {
+    th.cart-item-description-header {
+      text-align: left;
+    }
+  }
+
   tbody#line_items {
     tr {
+      cursor: default;
 
       td[data-hook="cart_item_price"], td[data-hook="cart_item_total"] {
+        text-align: center;
         @extend span.price;
         @extend span.price.selling;
       }
       td[data-hook="cart_item_quantity"] {
+        text-align: center;
+        font-size: 20px;
         .line_item_quantity {
           width: 65px;
         }
@@ -1088,6 +1098,12 @@ div[data-hook="inside_cart_form"] {
 /*--------------------------------------*/
 #order_summary {
   margin-top: 0;
+  legend {
+    text-align: center;
+  }
+  h1 {
+    margin-left: 15px;
+  }
 }
 #order {
   p[data-hook="links"] {

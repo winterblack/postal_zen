@@ -1,30 +1,41 @@
 <% variant = line_item.variant -%>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
-  <tr class="<%= cycle('', 'alt') %> line-item">
+  <% if spree_current_user %>
+    <tr class="with-tip <%= cycle('', 'alt') %> line-item"
+      title="Click for your details on this item"
+      onclick="document.location='<%= line_item_path(line_item.id) %>'">
+  <% else %>
+    <tr class="<%= cycle('', 'alt') %> line-item">
+  <% end %>
     <td class="cart-item-image" data-hook="cart_item_image">
-      <% if variant.images.length == 0 %>
-        <%= link_to image_tag(variant.product.display_image.attachment(:small)), variant.product %>
+      <% if line_item.cover.exists? %>
+        <%= image_tag(line_item.cover.url) %>
+      <% elsif variant.images.length == 0 %>
+        <%= image_tag(variant.product.display_image.attachment(:small)) %>
       <% else %>
-        <%= link_to image_tag(variant.images.first.attachment.url(:small)), variant.product %>
+        <%= image_tag(variant.images.first.attachment.url(:small)) %>
       <% end %>
     </td>
     <td class="cart-item-description" data-hook="cart_item_description">
-      <h4><%= link_to line_item.name, product_path(variant.product) %></h4>
+      <h4><%= line_item.name %></h4>
       <%= variant.options_text %>
       <% if line_item.insufficient_stock? %>
         <span class="out-of-stock">
           <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br />
         </span>
       <% end %>
-      <span class="line-item-description" data-hook="line_item_description">
-        <%= link_to 'PDF', proof_path(line_item.id, format: :pdf)  %>
-      </span>
+      <% if spree_current_user %>
+        <span class="line-item-description" data-hook="line_item_description">
+          &nbsp;&nbsp;<br />Click for your details on this item.
+          <i class="fa fa-question-circle" aria-hidden="true"></i>
+        </span>
+      <% end %>
     </td>
     <td class="cart-item-price" data-hook="cart_item_price">
       <%= line_item.single_money.to_html %>
     </td>
     <td class="cart-item-quantity" data-hook="cart_item_quantity">
-      <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity", :size => 5 %>
+      <%= line_item.quantity %>
     </td>
     <td class="cart-item-total" data-hook="cart_item_total">
       <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>

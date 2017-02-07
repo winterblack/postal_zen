@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   Spree::Core::Engine.routes.draw do
     resources :proof, only: [:show]
     resources :addresses
-    namespace :admin do
-      resources :line_items, only: [:show]
-    end
+    resources :line_items, only: [:show]
   end
 end

@@ -10,7 +10,7 @@
         <br/>
         <%= radio_button_tag 'use_existing_card', 'no' %>
         <label for="use_existing_card_no">
-          <%= Spree.t(:use_new_cc_or_payment_method) %>
+          Use new card
         </label>
       </div>
 
@@ -35,16 +35,18 @@
       </div>
     <% end %>
 
-    <div id="payment-method-fields" data-hook>
-      <% @order.available_payment_methods.each do |method| %>
-      <p>
-        <label>
-          <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
-          <%= Spree.t(method.name, :scope => :payment_methods, :default => method.name) %>
-        </label>
-      </p>
-      <% end %>
-    </div>
+    <% if @order.available_payment_methods.count > 1 %>
+      <div id="payment-method-fields" data-hook>
+        <% @order.available_payment_methods.each do |method| %>
+        <p>
+          <label>
+            <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.available_payment_methods.first %>
+            <%= Spree.t(method.name, :scope => :payment_methods, :default => method.name) %>
+          </label>
+        </p>
+        <% end %>
+      </div>
+    <% end %>
 
     <ul id="payment-methods" data-hook>
       <% @order.available_payment_methods.each do |method| %>

@@ -35,7 +35,7 @@
           </td>
           <td class="line-item-total align-center"><%= line_item_shipment_price(item, item.quantity) %></td>
           <td class="actions">
-            <%= link_to '', admin_line_item_path(item.id), class: 'view-line-item fa fa-eye no-text with-tip', title: 'View' %>
+            <%= link_to '', line_item_path(item.id), class: 'view-line-item fa fa-eye no-text with-tip', title: 'View' %>
           </td>
           <td class="cart-line-item-delete actions" data-hook="cart_line_item_delete">
             <% if can? :update, item %>
