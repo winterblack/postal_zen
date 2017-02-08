@@ -28,19 +28,6 @@
         <% end %>
       </fieldset>
     </div>
-    <div class="columns eight" data-hook="shipping_fieldset_wrapper">
-      <fieldset id="shipping" data-hook>
-        <%= f.fields_for :ship_address do |ship_form| %>
-          <legend align="center"><%= Spree.t(:shipping_address) %></legend>
-          <%= render partial: 'spree/address/form', locals: { form: ship_form,
-            address_type: 'shipping', address: @user.ship_address } %>
-        <% end %>
-      </fieldset>
-    </div>
-    <hr class="clear" />
-    <div class="form-buttons column" data-hook="buttons">
-      <%= f.submit Spree.t(:update), class: 'button primary' %>
-    </div>
   <% end %>
 </div>
 
