@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170203224652) do
+ActiveRecord::Schema.define(version: 20170208182454) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -63,17 +63,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.datetime "updated_at"
     t.index ["active"], name: "index_spree_adjustment_reasons_on_active"
     t.index ["code"], name: "index_spree_adjustment_reasons_on_code"
-  end
-
-  create_table "spree_adjustment_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_spree_adjustment_versions_on_item_type_and_item_id"
   end
 
   create_table "spree_adjustments", force: :cascade do |t|
@@ -209,17 +198,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.index ["line_item_id"], name: "index_spree_line_item_actions_on_line_item_id"
   end
 
-  create_table "spree_line_item_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_spree_line_item_versions_on_item_type_and_item_id"
-  end
-
   create_table "spree_line_items", force: :cascade do |t|
     t.integer  "variant_id"
     t.integer  "order_id"
@@ -238,6 +216,7 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
+    t.date     "deliver_on"
     t.index ["order_id"], name: "index_spree_line_items_on_order_id"
     t.index ["variant_id"], name: "index_spree_line_items_on_variant_id"
   end
@@ -303,17 +282,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.datetime "updated_at"
   end
 
-  create_table "spree_order_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_spree_order_versions_on_item_type_and_item_id"
-  end
-
   create_table "spree_orders", force: :cascade do |t|
     t.string   "number",                 limit: 32
     t.decimal  "item_total",                        precision: 10, scale: 2, default: "0.0",   null: false
@@ -370,35 +338,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.index ["promotion_code_id"], name: "index_spree_orders_promotions_on_promotion_code_id"
   end
 
-  create_table "spree_pages", force: :cascade do |t|
-    t.string   "title"
-    t.text     "body"
-    t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "show_in_header",           default: false, null: false
-    t.boolean  "show_in_footer",           default: false, null: false
-    t.string   "foreign_link"
-    t.integer  "position",                 default: 1,     null: false
-    t.boolean  "visible",                  default: true
-    t.string   "meta_keywords"
-    t.string   "meta_description"
-    t.string   "layout"
-    t.boolean  "show_in_sidebar",          default: false, null: false
-    t.string   "meta_title"
-    t.boolean  "render_layout_as_partial", default: false
-    t.index ["slug"], name: "index_spree_pages_on_slug"
-  end
-
-  create_table "spree_pages_stores", id: false, force: :cascade do |t|
-    t.integer  "store_id"
-    t.integer  "page_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["page_id"], name: "index_spree_pages_stores_on_page_id"
-    t.index ["store_id"], name: "index_spree_pages_stores_on_store_id"
-  end
-
   create_table "spree_payment_capture_events", force: :cascade do |t|
     t.decimal  "amount",     precision: 10, scale: 2, default: "0.0"
     t.integer  "payment_id"
@@ -422,17 +361,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.boolean  "available_to_users", default: true
     t.boolean  "available_to_admin", default: true
     t.index ["id", "type"], name: "index_spree_payment_methods_on_id_and_type"
-  end
-
-  create_table "spree_payment_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_spree_payment_versions_on_item_type_and_item_id"
   end
 
   create_table "spree_payments", force: :cascade do |t|
@@ -713,17 +641,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.index ["order_id"], name: "index_spree_reimbursements_on_order_id"
   end
 
-  create_table "spree_return_authorization_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "spree_return_auth_versions"
-  end
-
   create_table "spree_return_authorizations", force: :cascade do |t|
     t.string   "number"
     t.string   "state"
@@ -780,17 +697,6 @@ ActiveRecord::Schema.define(version: 20170203224652) do
     t.datetime "updated_at"
     t.index ["role_id"], name: "index_spree_roles_users_on_role_id"
     t.index ["user_id"], name: "index_spree_roles_users_on_user_id"
-  end
-
-  create_table "spree_shipment_versions", force: :cascade do |t|
-    t.string   "item_type",                         null: false
-    t.integer  "item_id",                           null: false
-    t.string   "event",                             null: false
-    t.string   "whodunnit"
-    t.text     "object",         limit: 1073741823
-    t.text     "object_changes", limit: 1073741823
-    t.datetime "created_at"
-    t.index ["item_type", "item_id"], name: "index_spree_shipment_versions_on_item_type_and_item_id"
   end
 
   create_table "spree_shipments", force: :cascade do |t|
