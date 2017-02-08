@@ -10,6 +10,7 @@
     <thead>
       <tr>
         <th><%= Spree::Product.human_attribute_name(:name) %></th>
+        <th>Deliver On</th>
         <th><%= Spree::LineItem.human_attribute_name(:price) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:quantity) %></th>
         <th><%= Spree::LineItem.human_attribute_name(:total) %></th>
@@ -25,6 +26,9 @@
             <% if item.variant.sku.present? %>
               <strong><%= Spree::Variant.human_attribute_name(:sku) %>:</strong> <%= item.variant.sku %>
             <% end %>
+          </td>
+          <td>
+            <%= item.deliver_on %>
           </td>
           <td class="line-item-price align-center"><%= item.single_money.to_html %></td>
           <td class="line-item-qty-show align-center">
