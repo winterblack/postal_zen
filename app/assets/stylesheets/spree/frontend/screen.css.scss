@@ -127,12 +127,24 @@ div.fr-modal-body div.fr-image-list div.fr-image-container .fr-insert-img {
 	-o-transform: translateY(-50%) translateX(-50%) !important;
 }
 
+::-webkit-clear-button {
+  display: none; /* Hide the button */
+  -webkit-appearance: none; /* turn off default browser styling */
+}
+::-webkit-inner-spin-button {
+  display: none; /* Hide the button */
+  -webkit-appearance: none; /* turn off default browser styling */
+}
+
+
 textarea, input[type="date"],
 input[type="datetime"], input[type="datetime-local"],
 input[type="email"], input[type="month"], input[type="number"],
 input[type="password"], input[type="search"], input[type="tel"],
 input[type="text"], input[type="time"], input[type="url"],
 input[type="week"] {
+  -webkit-appearance: none;
+
   border: $default_border;
   padding: 5px;
   font-family: $ff_base;
@@ -983,7 +995,11 @@ table#cart-detail {
   tbody#line_items {
     tr {
       cursor: default;
-
+      td.cart-item-image {
+        img {
+          max-width: 100px;
+        }
+      }
       td[data-hook="cart_item_price"], td[data-hook="cart_item_total"] {
         text-align: center;
         @extend span.price;

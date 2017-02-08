@@ -32,13 +32,15 @@
     <%= form.text_field :city, class: 'required', autocomplete: address_type + ' address-level2' %>
   </p>
 
-  <p class="field" id=<%="#{address_id}country" %>>
-    <%= form.label :country_id, Spree.t(:country) %><span class="required">*</span><br />
-    <span id=<%="#{address_id}country-selection" %>>
-      <%= form.collection_select :country_id, available_countries, :id, :name, {},
-          class: 'required', autocomplete: address_type + ' country-name' %>
-    </span>
-  </p>
+  <% if address_type == 'billing' %>
+    <p class="field" id=<%="#{address_id}country" %>>
+      <%= form.label :country_id, Spree.t(:country) %><span class="required">*</span><br />
+      <span id=<%="#{address_id}country-selection" %>>
+        <%= form.collection_select :country_id, available_countries, :id, :name, {},
+            class: 'required', autocomplete: address_type + ' country-name' %>
+      </span>
+    </p>
+  <% end %>
 
   <% if Spree::Config[:address_requires_state] %>
     <p class="field" id=<%="#{address_id}state" %>>

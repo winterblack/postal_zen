@@ -46,18 +46,10 @@ module Spree
       variant  = Spree::Variant.find(params[:variant_id])
       content = params[:content]
       cover = params[:cover]
-
-      # Get Address ids
-      if addresses = params[:addresses]
-        address_ids = import_csv(addresses)
-      elsif address_params = order_params[:address_attributes]
-        address = Spree::Address.create(address_params)
-        address_ids = [address.id]
-      else
-        address_ids = params[:address_ids]
-      end
-
+      deliver_on = params[:deliver_on]
+      address_ids = get_address_ids
       quantity = address_ids.count
+
       if !address_ids
         flash[:error] = "Please select an address"
         return redirect_to product_path(variant.product.slug)
@@ -69,7 +61,7 @@ module Spree
       end
 
       begin
-        @line_item = @order.contents.add(variant, quantity, content, cover, address_ids)
+        @line_item = @order.contents.add(variant, quantity, content, cover, deliver_on, address_ids)
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end
@@ -87,22 +79,6 @@ module Spree
       end
     end
 
-    def import_csv(addresses)
-      address_ids = []
-      CSV.foreach(addresses.path, headers: true) do |row|
-        address_attributes = row.to_hash
-        # Find the country and state ids
-        country = find_country(address_attributes['country']) || Country.find(232)
-        state = find_state(address_attributes['state'], country.id)
-        address_attributes[:country_id] = country.id
-        address_attributes[:state_id] = state.id
-        address_attributes.except!('country', 'state')
-        # Create address and add its id to array
-        address = Spree::Address.create! address_attributes
-        address_ids << address.id
-      end
-      address_ids
-    end
 
     def populate_redirect
       flash[:error] = Spree.t(:populate_get_error)
@@ -137,6 +113,36 @@ module Spree
     end
 
     private
+
+    def get_address_ids
+      address_ids = params[:address_ids] || []
+
+      addresses = params[:addresses]
+      address_ids += import_csv(addresses) if addresses
+
+      address_params = order_params[:address_attributes]
+      address = Spree::Address.create(address_params)
+      address_ids += address.id if address.valid?
+
+      address_ids
+    end
+
+    def import_csv(addresses)
+      address_ids = []
+      CSV.foreach(addresses.path, headers: true) do |row|
+        address_attributes = row.to_hash
+        # Find the country and state ids
+        country = find_country(address_attributes['country']) || Country.find(232)
+        state = find_state(address_attributes['state'], country.id)
+        address_attributes[:country_id] = country.id
+        address_attributes[:state_id] = state.id
+        address_attributes.except!('country', 'state')
+        # Create address and add its id to array
+        address = Spree::Address.create! address_attributes
+        address_ids << address.id
+      end
+      address_ids
+    end
 
     def order_params
       if params[:order]

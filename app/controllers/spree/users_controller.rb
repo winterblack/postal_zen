@@ -6,6 +6,7 @@ class Spree::UsersController < Spree::StoreController
   include Spree::Core::ControllerHelpers
 
   def show
+    @user.bill_address ||= Spree::Address.new(country_id: 232)
     @orders = @user.orders.complete.order('completed_at desc')
   end
 

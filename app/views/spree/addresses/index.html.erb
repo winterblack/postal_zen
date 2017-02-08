@@ -20,9 +20,9 @@
 <hr class="clear"/>
 
 <%= form_tag addresses_path, method: :post do %>
-  <%= label_tag 'UserCode' %>
+  <%= label_tag 'UserCode', 'UserCode' %>
   <%= text_field_tag 'UserCode' %>
-  <%= label_tag 'APIToken' %>
+  <%= label_tag 'APIToken', 'APIToken' %>
   <%= text_field_tag 'APIToken' %>
   <%= submit_tag 'Import Contacts' %>
 <% end %>

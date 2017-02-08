@@ -14,15 +14,21 @@
         imageManagerLoadURL: '/image_manager',
       })
     </script>
+
+    <h4>What date would you like your letter sent?</h4>
+    <p>
+      <%= date_field_tag :deliver_on, Date.today, min: Date.today %>
+    </p>
+
     <h4>Upload Addresses</h4>
     <p>
       <%= file_field_tag :addresses %>
     </p>
     <% if @addresses.any? %>
+      <h4>Select Addresses</h4>
       <% @addresses.each do |address| %>
-        <% next if address == @user.bill_address %>
-        <% next if address == @user.ship_address %>
-        <div class="columns omega four address-book">
+        <% next if address == spree_current_user.bill_address %>
+        <div class="columns alpha four address-book">
           <fieldset>
             <span class="right">
               <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
@@ -33,10 +39,17 @@
       <% end %>
     <% end %>
 
-    <%= f.fields_for('address_attributes', @address) do |form| %>
-      <%= render :partial => 'spree/address/form', :locals => { form: form,
-        address_type: 'shipping', address: @address } %>
-    <% end %>
+      <%= f.fields_for('address_attributes', @address) do |form| %>
+        <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
+          <fieldset id="shipping" data-hook>
+            <%= f.fields_for :bill_address do |bill_form| %>
+              <legend align="center">Recipient Address</legend>
+              <%= render :partial => 'spree/address/form', :locals => { form: form,
+                address_type: 'shipping', address: @address } %>
+            <% end %>
+          </fieldset>
+        </div>
+      <% end %>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
       <div id="product-variants" class="columns five alpha">
