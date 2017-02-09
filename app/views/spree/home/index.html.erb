@@ -1,12 +1,148 @@
-<% content_for :sidebar do %>
-  <div data-hook="homepage_sidebar_navigation">
-    <%= render :partial => 'spree/shared/taxonomies' %>
-  </div>
-<% end %>
-
-<div data-hook="homepage_products">
-  <% cache(cache_key_for_products) do %>
-    <%= render :partial => 'spree/shared/products', :locals => { :products => @products } %>
-  <% end %>
+<%= stylesheet_link_tag 'home.css.scss', media: 'all' %>
+<div class="home">
+  <section id="home" class="module parallax parallax-home">
+    <div class="dark-back">
+      <div class="container">
+        <div class="intro">
+          <h1>We deliver hassle free mail</h1>
+          <div class="intro-bottom">
+            <button class="home-button">Order Now</button>
+            <h2>100% Satisfaction Guarantee</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>Simple Mail in Seconds</h2>
+      <div class="one-third column">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa fa-file-text" aria-hidden="true"></i>
+        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa fa-check-circle" aria-hidden="true"></i>
+        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+      </div>
+    </div>
+  </section>
+  <section class="module content testimonials back-1">
+    <div class="container">
+      <p>"Ed and PostalZen provide a handy and convenient alternative for folks who lack either the time or desire to wait in long lines and bureaucracy. Check it out!"</p>
+      <span>Chris - California</span>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>So how does it work?</h2>
+      <div class="one-third column">
+        <i class="fa black fa-desktop" aria-hidden="true"></i>
+        <h5>Step 1</h5>
+        <p>Complete Our Simple Form and Select the Date You Would Like Us to Mail Your Custom Card or Letter.</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa black fa-pencil-square-o" aria-hidden="true"></i>
+        <h5>Step 2</h5>
+        <p>Add the Text, a Photo, and Customize the Details of Your Letter or Card. (Or Ask Us To Do It For You)</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa black fa-truck" aria-hidden="true"></i>
+        <h5>Step 3</h5>
+        <p>Submit Your Order and We'll Mail Your Item Anywhere in The U.S. (First Class Mail 3-7 Days)</p>
+      </div>
+    </div>
+  </section>
+  <section class="module parallax parallax-home">
+    <div class="dark-back">
+      <div class="container">
+        <h1>Like what you see?</h1>
+        <button class="home-button">Try Us Free</button>
+      </div>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>As Seen On</h2>
+      <ul id="as-seen-on">
+        <li class="columns four"><%= image_tag 'as_seen_on/alaska_startups.png', class: 'light' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/ces.png' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/mixergy.jpg', class: 'lighter' %></li>
+        <li class="columns four"><%= image_tag 'as_seen_on/patriot_boot_camp.png', class: 'lighter' %></li>
+      </ul>
+    </div>
+  </section>
+  <section id="about" class="module parallax parallax-about">
+    <div class="light-back">
+      <div class="container">
+        <h1>About us</h1>
+        <p>We built PostalZen with you in mind!</p>
+      </div>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2 class="left">Desperate times</h2>
+      <p class="twelve columns justify">My name is Ed and I hate licking envelopes. A few years ago, I was in the middle east and I needed to send signed documents home quickly. I scoured the internet to find a truly simple solution and to my surprise there wasn't a really good fit. There must be a better way... Well we found it. Since our humble beginnings we've grown to help even more people, but at the heart of it all we're just here to provide the most convenient mailing service. Look around, I promise there isn't a more simple solution.</p>
+    </div>
+  </section>
+  <section class="module content back-1 right">
+    <div class="container">
+      <h2 class="right">Why we're here</h2>
+      <p class="offset-by-four twelve columns justify">Our service is designed to be a simple, hassle-free and secure experience. I am glad that you've found us and we are dedicated to living up to your expectations. The core values I gained in the military are at the heart of PostalZen. We deliver a convenient solution for busy professionals, military personnel and those visiting or living abroad. You are our audience and we will do everything we can to deliver. PostalZen is veteran owned and we are dedicated to providing exceptional service to our heroes.</p>
+    </div>
+  </section>
+  <section class="module content">
+    <div class="container">
+      <h2>Meet our founder</h2>
+      <div class="offset-by-five six columns">
+        <%= image_tag 'ed.png' %>
+        <h3>Ed Reifle</h3>
+        <h5>Founder</h5>
+        <p >I'm dedicated to delivering a great service.  Don't hesitate to reach out with any questions, concerns or ideas.  In fact, whatever the reason feel free...</p>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="module content back-2">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <p>How can we help you?</p>
+      <div id="map"></div>
+      <script>
+        console.log('running script')
+        let center = { lat: 38.627222, lng: -90.197778 }
+        let map = new google.maps.Map(document.getElementById('map'), {
+          center,
+          zoom: 11,
+          scrollwheel: false,
+          mapTypeControl: false,
+          zoomControl: false,
+          streetViewControl: false
+        })
+        new google.maps.Marker({ position: center, map })
+      </script>
+      <div class="four columns sub-section">
+        <i class="fa black fa-map-marker" aria-hidden="true"></i>
+        <p>Contact us anytime, we are dedicated to providing great support.</p>
+      </div>
+      <div class="four columns sub-section">
+        <i class="fa black fa-mobile" aria-hidden="true"></i>
+        <p>Our Number:<br>
+          877-560-5335<br>
+          Feel free to give us a call. Our hours are Monday through Friday 8 A.M. to 5 P.M. PST</p>
+      </div>
+      <div class="eight columns">
+        <%= form_tag :contact, id: 'contact-us' %>
+        <%= label_tag :name %>
+        <%= text_field_tag :name %>
+        <%= label_tag :email %>
+        <%= text_field_tag :email %>
+        <%= label_tag :message %>
+        <%= text_area_tag :message %>
+        <%= submit_tag :send %>
+      </div>
+  </section>
 </div>
-

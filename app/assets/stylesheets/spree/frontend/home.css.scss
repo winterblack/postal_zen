@@ -1,0 +1,218 @@
+.home {
+  /* ============================================================
+  PRIMARY STRUCTURE
+  ============================================================ */
+  margin: -20px -100% 0 -100%;
+  overflow: auto;
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }
+  /* ============================================================
+  SECTIONS
+  ============================================================ */
+  section .dark-back {
+    height: 100%;
+    background-image: linear-gradient(black, transparent);
+  }
+  section .light-back {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  section.module {
+    text-align: center;
+    color: dimgray;
+  }
+  section.module .left {
+    text-align: left;
+  }
+  section.module .right {
+    text-align: right;
+  }
+  section.module .justify {
+    text-align: justify;
+  }
+  section.module:last-child {
+    margin-bottom: 0;
+  }
+  section.module button.home-button {
+    font-size: 16px;
+    margin: 24px;
+    padding: 12px 24px;
+  }
+  section.module h2 {
+    padding-bottom: 40px;
+    font-size: 30px;
+    color: dimgray;
+  }
+  section.module h5 {
+    margin: 10px 0;
+    color: dimgray;
+  }
+  section.module p {
+    margin-bottom: 40px;
+    font-weight: normal;
+    font-style: italic;
+    line-height: normal;
+  }
+  section.module h2 + p {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  section.module p:last-child {
+    margin-bottom: 0;
+  }
+  section.module.content {
+    padding: 40px 0;
+  }
+  section.module.content.back-1 {
+    background: #e5f3f8;
+  }
+  section.module.content.back-2 {
+    background: #91b5c2;
+  }
+  section.module.content.testimonials {
+    padding: 100px;
+    line-height: normal;
+  }
+  section.module.content.testimonials p {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  section.module.content.testimonials span {
+    font-size: 16px;
+  }
+  section.module.parallax {
+    height: 50vh;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  section.module.parallax h1 {
+    padding: 75px 0;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    text-transform: capitalize;
+  }
+  section.module.parallax h2 {
+    padding: 75px 0;
+    color: white;
+    font-family: 'Roboto Condensed';
+    font-size: 24px;
+    text-shadow: 0 0 10px black;
+  }
+  section.module.parallax p {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  }
+  section.module.parallax-home {
+    background-color: transparent;
+    background-image: url("home.png");
+  }
+  section.module.parallax-about {
+    background-color: transparent;
+    background-image: url("about.jpg");
+  }
+  @media all and (min-width: 480px) {
+    section.module h2 {
+      font-size: 42px;
+    }
+    section.module p {
+      font-size: 20px;
+    }
+    section.module.content.testimonials p {
+      font-size: 40px;
+    }
+  }
+  @media all and (min-width: 770px) {
+    section.module h2 {
+      font-size: 42px;
+    }
+    section.module p {
+      font-size: 20px;
+    }
+    section.module.content.testimonials p {
+      font-size: 40px;
+    }
+    section.module.parallax h1 {
+      font-size: 45px;
+    }
+    section.module.parallax h2 {
+      font-size: 30px;
+    }
+  }
+  @media all and (min-width: 960px) {
+    section.module.parallax h1 {
+      font-size: 60px;
+    }
+    section.module.parallax h2 {
+      font-size: 45px;
+    }
+  }
+  /* ============================================================
+  HOME
+  ============================================================ */
+  i.fa {
+    font-size: 75px;
+    color: #00ADEE;
+  }
+  i.black {
+    color: dimgray;
+  }
+  #as-seen-on {
+    img {
+      height: auto;
+      max-height: 66px;
+      width: 100%;
+      object-fit: contain;
+      filter: grayscale(90%);
+    }
+    img.light {
+      filter: grayscale(90%) opacity(75%);
+    }
+    img.lighter {
+      filter: grayscale(90%) opacity(66%);
+    }
+  }
+  /* ============================================================
+  CONTACT
+  ============================================================ */
+
+  #map {
+    margin: auto;
+    height: 540px;
+    border: 1px solid dimgray;
+  }
+
+  .sub-section {
+    margin-top: 30px;
+  }
+
+  #contact-us {
+    margin: 20px 0;
+    padding: 10px 0;
+    text-align: left;
+    input, textarea {
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 3px;
+    }
+    textarea {
+      height: 200px;
+    }
+    input[type='submit'] {
+      margin: 10px 0;
+      width: auto;
+      text-transform: uppercase;
+    }
+    label {
+      font-size: 16px;
+    }
+  }
+}

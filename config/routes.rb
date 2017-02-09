@@ -1,16 +1,11 @@
 Rails.application.routes.draw do
-  # Static Page Routes
-  root 'pages#index'
-
-  # Froala Image Manager API response
-  get 'image_manager' => 'image_manager#index'
-
-  # Contact Us Mailer
-  post 'contact' => 'pages#contact'
-
   # Spree Routes
-  mount Spree::Core::Engine, :at => '/shop'
+  mount Spree::Core::Engine, :at => '/'
   Spree::Core::Engine.routes.draw do
+    # Froala Image Manager API response
+    get 'image_manager' => 'home#image_manager'
+    # Contact Us Mailer
+    post 'contact' => 'home#contact'
     resources :proof, only: [:show]
     resources :addresses
     resources :line_items, only: [:show]
