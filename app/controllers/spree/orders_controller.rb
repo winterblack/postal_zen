@@ -17,6 +17,12 @@ module Spree
     end
 
     def update
+      if backend? && order_params[:shipment_state]
+        if @order.update(shipment_state: order_params[:shipment_state])
+          flash[:success] = "Delivery status updated"
+          return redirect_to admin_orders_url
+        end
+      end
       if @order.contents.update_cart(order_params)
         @order.next if params.key?(:checkout) && @order.cart?
 
@@ -114,6 +120,10 @@ module Spree
 
     private
 
+    def backend?
+      request.referrer == admin_orders_url
+    end
+
     def get_address_ids
       address_ids = params[:address_ids] || []
 
@@ -146,13 +156,14 @@ module Spree
 
     def order_params
       if params[:order]
-        params.require(:order).permit(:address_attributes=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}])
+        params.require(:order).permit(:shipment_state, :address_attributes=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}])
       else
         {}
       end
     end
 
     def assign_order
+      return if backend? && @order = Spree::Order.find_by_number(params[:id])
       @order = current_order
       unless @order
         flash[:error] = Spree.t(:order_not_found)
