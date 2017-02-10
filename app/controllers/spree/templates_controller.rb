@@ -5,7 +5,7 @@ module Spree
   # GET /spree/templates
   # GET /spree/templates.json
   def index
-    @templates = Spree::Template.all
+    @templates = spree_current_user.templates
   end
 
   # GET /spree/templates/1

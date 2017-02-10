@@ -11,6 +11,7 @@ module Spree
     before_update { generate_spree_api_key if encrypted_password_changed? && spree_api_key.present? }
 
     has_many :orders
+    has_many :templates
 
     before_validation :set_login
 
