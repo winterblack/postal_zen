@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208182454) do
+ActiveRecord::Schema.define(version: 20170209235725) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -1033,6 +1033,15 @@ ActiveRecord::Schema.define(version: 20170208182454) do
     t.index ["permalink"], name: "index_taxons_on_permalink"
     t.index ["position"], name: "index_spree_taxons_on_position"
     t.index ["taxonomy_id"], name: "index_taxons_on_taxonomy_id"
+  end
+
+  create_table "spree_templates", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_spree_templates_on_user_id"
   end
 
   create_table "spree_transfer_items", force: :cascade do |t|

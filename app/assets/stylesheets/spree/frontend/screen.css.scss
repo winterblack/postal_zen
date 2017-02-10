@@ -775,7 +775,7 @@ ul#products {
 }
 
 #billing, #shipping, #shipping_method,
-#payment, #order_details, #order_summary {
+#payment, #order_details, #order_summary, #account-summary {
   margin-top: 10px;
   border: $default_border;
   padding: 10px;
@@ -787,6 +787,12 @@ ul#products {
     color: $link_text_color;
     padding: 5px;
     margin-left: 15px;
+  }
+}
+
+#account-summary {
+  div {
+    padding: 8px;
   }
 }
 
@@ -1080,6 +1086,10 @@ div[data-hook="inside_cart_form"] {
     float: right;
     padding: 5px;
   }
+}
+
+.actions {
+  margin: 15px 0;
 }
 
 #existing-customer, #new-customer, #forgot-password {

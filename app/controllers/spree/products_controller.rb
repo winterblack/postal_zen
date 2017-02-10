@@ -26,6 +26,7 @@ module Spree
 
       @product_properties = @product.product_properties.includes(:property)
       @taxon = Spree::Taxon.find(params[:taxon_id]) if params[:taxon_id]
+      @template = params[:template]
     end
 
     private

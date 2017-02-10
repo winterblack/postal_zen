@@ -6,7 +6,7 @@
     </p>
     <h4>Write A Letter</h4>
     <p>
-      <%= text_area_tag 'content', nil, id: 'rich-text-editor' %>
+      <%= text_area_tag 'content', @template, id: 'rich-text-editor' %>
     </p>
     <script>
       $('#rich-text-editor').froalaEditor({

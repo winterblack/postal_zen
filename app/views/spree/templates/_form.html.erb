@@ -1,0 +1,35 @@
+<%= form_for(template) do |f| %>
+  <% if template.errors.any? %>
+    <div class="flash error">
+      <h2><%= pluralize(template.errors.count, "error") %> prohibited this template from being saved:</h2>
+
+      <ul>
+      <% template.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <h4><%= f.label :title %></h4>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <h4><%= f.label :content %></h4>
+    <%= f.text_area :content, id: 'rich-text-editor' %>
+  </div>
+
+  <script>
+    $('#rich-text-editor').froalaEditor({
+      imageManagerPreloader: '/image_manager/loading.gif',
+      imageManagerLoadURL: '/image_manager',
+      height: '50vh'
+    })
+  </script>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

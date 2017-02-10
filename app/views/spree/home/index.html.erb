@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag 'home.css.scss', media: 'all' %>
 <div class="home">
   <section id="home" class="module parallax parallax-home">
     <div class="dark-back">
@@ -6,7 +5,7 @@
         <div class="intro">
           <h1>We deliver hassle free mail</h1>
           <div class="intro-bottom">
-            <button class="home-button">Order Now</button>
+            <%= button_to 'Order Now', products_path, method: :get %>
             <h2>100% Satisfaction Guarantee</h2>
           </div>
         </div>

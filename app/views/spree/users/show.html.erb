@@ -1,21 +1,19 @@
 <h1 class="columns sixteen"><%= accurate_title %></h1>
 
-<div data-hook="account_summary" class="account-summary columns eight">
-  <dl id="user-info">
-    <dt><%= Spree.t(:email) %></dt>
-    <dd>
+<fieldset id="account-summary" data-hook="account_summary">
+  <legend align="center">My Stuff</legend>
+  <div>
+    <div>
       <%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)
-    </dd>
-  </dl>
-</div>
-<div data-hook="account_summary" class="account-summary columns eight">
-  <dl id="user-info">
-    <dt>Address Book</dt>
-    <dd>
+    </div>
+    <div>
       <%= link_to 'Address Book', addresses_path %>
-    </dd>
-  </dl>
-</div>
+    </div>
+    <div>
+      <%= link_to 'Templates', templates_path %>
+    </div>
+  </div>
+</fieldset>
 
 <div class="row">
   <%= form_for @user, method: :put, html: { id: "checkout_form_address" } do |f| %>

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # Spree Routes
   mount Spree::Core::Engine, :at => '/'
   Spree::Core::Engine.routes.draw do
+    resources :templates
     # Froala Image Manager API response
     get 'image_manager' => 'home#image_manager'
     # Contact Us Mailer
