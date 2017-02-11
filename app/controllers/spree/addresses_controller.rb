@@ -1,23 +1,17 @@
 class Spree::AddressesController < Spree::StoreController
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 
-  # GET /spree/addresses
-  # GET /spree/addresses.json
   def index
     @addresses = spree_current_user.addresses
   end
 
-  # GET /spree/addresses/new
   def new
     @address = Spree::Address.build_default
   end
 
-  # GET /spree/addresses/1/edit
   def edit
   end
 
-  # POST /spree/addresses
-  # POST /spree/addresses.json
   def create
     if params[:commit] == 'Import Contacts'
       import_contacts
@@ -34,8 +28,6 @@ class Spree::AddressesController < Spree::StoreController
     end
   end
 
-  # PATCH/PUT /spree/addresses/1
-  # PATCH/PUT /spree/addresses/1.json
   def update
     respond_to do |format|
       if @address.update(address_params)
@@ -48,8 +40,6 @@ class Spree::AddressesController < Spree::StoreController
     end
   end
 
-  # DELETE /spree/addresses/1
-  # DELETE /spree/addresses/1.json
   def destroy
     @address.destroy
     respond_to do |format|

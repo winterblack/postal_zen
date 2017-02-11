@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209235725) do
+ActiveRecord::Schema.define(version: 20170211003020) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -26,10 +26,14 @@ ActiveRecord::Schema.define(version: 20170209235725) do
   end
 
   create_table "recipients", force: :cascade do |t|
-    t.integer  "address_id",   null: false
-    t.integer  "line_item_id", null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "address_id",         null: false
+    t.integer  "line_item_id",       null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "proof_file_name"
+    t.string   "proof_content_type"
+    t.integer  "proof_file_size"
+    t.datetime "proof_updated_at"
     t.index ["address_id"], name: "index_recipients_on_address_id"
     t.index ["line_item_id"], name: "index_recipients_on_line_item_id"
   end

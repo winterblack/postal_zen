@@ -68,6 +68,7 @@ module Spree
 
       begin
         @line_item = @order.contents.add(variant, quantity, content, cover, deliver_on, address_ids)
+        lob_test @line_item
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end
@@ -119,6 +120,38 @@ module Spree
     end
 
     private
+
+    def lob_test line_item
+      lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
+      if line_item.product.name == 'Send a Postcard'
+        line_item.recipients.each do |recipient|
+          address = recipient.address
+          proof = lob.postcards.create(
+            to: lob_address(address),
+            from: lob_address(@order.bill_address),
+            front: File.new(line_item.cover.path(:postcard)),
+            back: "<html>#{line_item.content}</html>"
+          )
+          sleep 2
+          recipient.update(proof: proof['url'])
+        end
+      end
+    end
+
+    def lob_address address
+      return nil unless address
+      {
+        name: address.full_name,
+        company: address.company,
+        phone: address.phone,
+        address_line1: address.address1,
+        address_line2: address.address2,
+        address_city: address.city,
+        address_state: address.state.abbr,
+        address_country: address.country.iso,
+        address_zip: address.zipcode
+      }
+    end
 
     def backend?
       request.referrer == admin_orders_url

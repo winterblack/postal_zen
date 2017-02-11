@@ -1,9 +1,7 @@
 <% variant = line_item.variant -%>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
   <% if spree_current_user %>
-    <tr class="with-tip <%= cycle('', 'alt') %> line-item"
-      title="Click for your details on this item"
-      onclick="document.location='<%= line_item_path(line_item.id) %>'">
+    <tr class="with-tip <%= cycle('', 'alt') %> line-item">
   <% else %>
     <tr class="<%= cycle('', 'alt') %> line-item">
   <% end %>
@@ -24,11 +22,9 @@
           <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br />
         </span>
       <% end %>
+      <div>For delivery on <%= line_item.deliver_on.strftime("%B %d, %Y") %></div>
       <% if spree_current_user %>
-        <span class="line-item-description" data-hook="line_item_description">
-          &nbsp;&nbsp;<br />Click for your details on this item.
-          <i class="fa fa-question-circle" aria-hidden="true"></i>
-        </span>
+        <div><%= link_to 'Recipeints', line_item_path(line_item.id) %></div>
       <% end %>
     </td>
     <td class="cart-item-price" data-hook="cart_item_price">

@@ -11,6 +11,7 @@ gem 'wysiwyg-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'solidus_gateway'
+gem 'lob'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'

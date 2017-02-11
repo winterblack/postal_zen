@@ -1,8 +1,8 @@
-<h1>Address Book</h1>
+<h1 class="sixteen columns">Address Book</h1>
 <% @addresses.each do |address| %>
   <% next if address == spree_current_user.bill_address %>
   <% next if address == spree_current_user.ship_address %>
-  <div class="columns alpha four address-book">
+  <div class="columns four address-book">
     <fieldset>
       <span class="right"><%= link_to 'Delete', address, method: :delete,
         data: { confirm: 'Are you sure?' } %></span>
@@ -12,17 +12,27 @@
   </div>
 <% end %>
 
-<br>
-<hr class="clear"/>
-<div>
+<br class="clear">
+<div class="sixteen columns">
   <%= button_to 'New Address', new_address_path, method: :get %>
 </div>
-<hr class="clear"/>
+<br class="clear">
 
-<%= form_tag addresses_path, method: :post do %>
-  <%= label_tag 'UserCode', 'UserCode' %>
-  <%= text_field_tag 'UserCode' %>
-  <%= label_tag 'APIToken', 'APIToken' %>
-  <%= text_field_tag 'APIToken' %>
-  <%= submit_tag 'Import Contacts' %>
-<% end %>
+<div class="columns eight">
+  <fieldset class="integration">
+    <legend align="center">Less Annoying CRM Integration</legend>
+    <%= form_tag addresses_path, method: :post do %>
+      <p class="field">
+        <%= label_tag 'UserCode', 'UserCode' %>
+        <%= text_field_tag 'UserCode' %>
+      </p>
+      <p class="field">
+        <%= label_tag 'APIToken', 'APIToken' %>
+        <%= text_field_tag 'APIToken' %>
+      </p>
+      <p>
+        <%= submit_tag 'Import Contacts' %>
+      </p>
+    <% end %>
+  </fieldset>
+</div>

@@ -1,28 +1,11 @@
-<div class="columns eight alpha">
-  <h3><%= link_to 'Link To PDF', proof_path(@line_item.id, format: :pdf), target: "_blank" %>
-  </h3>
-</div>
-<div class="columns eight">
-  <h3>Deliver On <%= @line_item.deliver_on.strftime("%B %d, %Y") %></h3>
-</div>
-
 <div clas="columns sixteen">
-  <% if @line_item.cover.exists? %>
-    <h2>Cover</h2>
-    <%= image_tag @line_item.cover.url(:original) %>
-  <% end %>
-
-  <% if spree_current_user.admin? %>
-    <h2>Content</h2>
-    <%= @line_item.content %>
-  <% end %>
-
-  <h2>Addresses</h2>
-  <% @line_item.addresses.each do |address| %>
-    <% next if address == spree_current_user.bill_address %>
-    <% next if address == spree_current_user.ship_address %>
+  <h2>Recipients</h2>
+  <% @line_item.recipients.each do |recipient| %>
+    <% address = recipient.address %>
     <div class="columns alpha four address-book">
       <fieldset>
+        <span class="right"><%= link_to 'Proof', proof_path(recipient), target: '_blank' %></span>
+        <br>
         <%= render :partial => 'spree/shared/address', locals: { address: address } %>
       </fieldset>
     </div>

@@ -8,7 +8,7 @@ module Spree
   # promotion system.
   #
   class LineItem < Spree::Base
-    has_attached_file :cover, styles: { large: '600x600>' },
+    has_attached_file :cover, styles: { postcard: '1875x1275!' },
                       url: '/spree/line_items/:id/:style/:basename.:extension',
                       path: ':rails_root/public/spree/line_items/:id/:style/:basename.:extension'
     validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/

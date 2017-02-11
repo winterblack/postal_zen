@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'image_manager' => 'home#image_manager'
     # Contact Us Mailer
     post 'contact' => 'home#contact'
-    resources :proof, only: [:show]
+    resources :proof, only: [:show, :create]
     resources :addresses
     resources :line_items, only: [:show]
   end
