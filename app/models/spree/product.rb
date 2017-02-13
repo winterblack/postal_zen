@@ -105,8 +105,7 @@ module Spree
 
     def display_for?(user)
       return true if user.admin?
-      display = property 'display'
-      if display == 'business'
+      if property('display') == 'business'
         return false unless user.has_spree_role? 'business'
       end
       true

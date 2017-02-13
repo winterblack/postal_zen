@@ -123,7 +123,7 @@ module Spree
 
     def lob_test line_item
       lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
-      if line_item.product.name == 'Send a Postcard'
+      if line_item.product.property('lob') == 'postcard'
         line_item.recipients.each do |recipient|
           address = recipient.address
           proof = lob.postcards.create(

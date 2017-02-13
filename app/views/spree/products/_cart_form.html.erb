@@ -1,21 +1,27 @@
 <%= form_for :order, url: populate_orders_path, html: { multipart: true } do |f| %>
   <div id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-    <h4>Upload A Cover</h4>
-    <p>
-      <%= file_field_tag :cover %>
-    </p>
-    <h4>Write A Letter</h4>
-    <p>
-      <%= text_area_tag 'content', @template, id: 'rich-text-editor' %>
-    </p>
-    <script>
-      $('#rich-text-editor').froalaEditor({
-        imageManagerPreloader: '/image_manager/loading.gif',
-        imageManagerLoadURL: '/image_manager',
-      })
-    </script>
 
-    <h4>What date would you like your letter sent?</h4>
+    <% if @product.property 'cover' %>
+      <h4>Upload A Cover</h4>
+      <p>
+        <%= file_field_tag :cover %>
+      </p>
+    <% end %>
+
+    <% if @product.property 'content' %>
+      <h4>Write A Letter</h4>
+      <p>
+        <%= text_area_tag 'content', @template, id: 'rich-text-editor' %>
+      </p>
+      <script>
+        $('#rich-text-editor').froalaEditor({
+          imageManagerPreloader: '/image_manager/loading.gif',
+          imageManagerLoadURL: '/image_manager',
+        })
+      </script>
+    <% end %>
+    
+    <h4>What date would you like it sent?</h4>
     <p>
       <%= date_field_tag :deliver_on, Date.today, min: Date.today %>
     </p>
