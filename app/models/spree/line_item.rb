@@ -13,6 +13,12 @@ module Spree
                       path: ':rails_root/public/spree/line_items/:id/:style/:basename.:extension'
     validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
+    has_attached_file :content_file,
+                      url: '/spree/line_items/:id/content/:basename.:extension',
+                      path: ':rails_root/public/spree/line_items/:id/content/:basename.:extension'
+    validates_attachment_content_type :content_file, content_type: 'application/pdf'
+
+
     class CurrencyMismatch < StandardError; end
 
     belongs_to :order, class_name: "Spree::Order", inverse_of: :line_items, touch: true

@@ -51,6 +51,7 @@ module Spree
       @order   = current_order(create_order_if_necessary: true)
       variant  = Spree::Variant.find(params[:variant_id])
       content = params[:content]
+      content_file = params[:content_file]
       cover = params[:cover]
       deliver_on = params[:deliver_on]
       address_ids = get_address_ids
@@ -67,7 +68,7 @@ module Spree
       end
 
       begin
-        @line_item = @order.contents.add(variant, quantity, content, cover, deliver_on, address_ids)
+        @line_item = @order.contents.add(variant, quantity, content, content_file, cover, deliver_on, address_ids)
         lob_test @line_item
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
@@ -165,7 +166,10 @@ module Spree
 
       address_params = order_params[:address_attributes]
       address = Spree::Address.create(address_params)
-      address_ids += address.id if address.valid?
+      if address.valid?
+        address_ids += [address.id]
+        save_to_address_book address.id
+      end
 
       address_ids
     end
@@ -182,9 +186,16 @@ module Spree
         address_attributes.except!('country', 'state')
         # Create address and add its id to array
         address = Spree::Address.create! address_attributes
+        save_to_address_book address.id
         address_ids << address.id
       end
       address_ids
+    end
+
+    def save_to_address_book(address_id)
+      if params[:save_to_address_book]
+        Spree::UserAddress.create(address_id: address_id, user_id: spree_current_user.id)
+      end
     end
 
     def order_params

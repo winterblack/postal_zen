@@ -20,19 +20,35 @@
 
 <div class="columns eight">
   <fieldset class="integration">
-    <legend align="center">Less Annoying CRM Integration</legend>
-    <%= form_tag addresses_path, method: :post do %>
+    <legend align="center">CSV Upload</legend>
+    <%= form_tag({ action: :create, controller: 'spree/addresses', method: :post }, { multipart: true }) do %>
       <p class="field">
-        <%= label_tag 'UserCode', 'UserCode' %>
-        <%= text_field_tag 'UserCode' %>
-      </p>
-      <p class="field">
-        <%= label_tag 'APIToken', 'APIToken' %>
-        <%= text_field_tag 'APIToken' %>
+        <%= file_field_tag :addresses %>
       </p>
       <p>
-        <%= submit_tag 'Import Contacts' %>
+        <%= submit_tag 'CSV Upload' %>
       </p>
     <% end %>
   </fieldset>
 </div>
+
+<% if spree_current_user.has_spree_role?('business') || spree_current_user.admin? %>
+  <div class="columns eight">
+    <fieldset class="integration">
+      <legend align="center">Less Annoying CRM</legend>
+      <%= form_tag addresses_path, method: :post do %>
+        <p class="field">
+          <%= label_tag 'UserCode', 'UserCode' %>
+          <%= text_field_tag 'UserCode' %>
+        </p>
+        <p class="field">
+          <%= label_tag 'APIToken', 'APIToken' %>
+          <%= text_field_tag 'APIToken' %>
+        </p>
+        <p>
+          <%= submit_tag 'Import Contacts' %>
+        </p>
+      <% end %>
+    </fieldset>
+  </div>
+<% end %>

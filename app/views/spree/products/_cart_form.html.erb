@@ -3,33 +3,41 @@
 
     <% if @product.property 'cover' %>
       <h4>Upload A Cover</h4>
-      <p>
-        <%= file_field_tag :cover %>
-      </p>
+      <p><%= file_field_tag :cover %></p>
     <% end %>
 
     <% if @product.property 'content' %>
-      <h4>Write A Letter</h4>
-      <p>
-        <%= text_area_tag 'content', @template, id: 'rich-text-editor' %>
-      </p>
-      <script>
+      <h4>How would you like to submit your message?</h4>
+      <ul class="tabs">
+        <li><a href="#">Upload a Message</a></li>
+        <li><a href="#">Write a Message</a></li>
+      </ul>
+
+      <div>Upload A Message</div>
+      <p><%= file_field_tag :content_file %></p>
+
+      <div>Write a Message</div>
+      <p><%= text_area_tag 'content', @template, id: 'rich-text-editor' %></p>
+      <!-- <script>
         $('#rich-text-editor').froalaEditor({
           imageManagerPreloader: '/image_manager/loading.gif',
           imageManagerLoadURL: '/image_manager',
         })
-      </script>
+      </script> -->
     <% end %>
-    
+
     <h4>What date would you like it sent?</h4>
-    <p>
-      <%= date_field_tag :deliver_on, Date.today, min: Date.today %>
-    </p>
+    <p><%= date_field_tag :deliver_on, Date.today, min: Date.today %></p>
 
     <h4>Upload Addresses</h4>
-    <p>
-      <%= file_field_tag :addresses %>
+    <p><%= file_field_tag :addresses %>
+      <% if spree_current_user %>
+        <%= check_box_tag :save_to_address_book, true, false, id: 'one' %>
+        <%= label_tag :save_to_address_book, nil, for: 'one' %>
+      <% end %>
     </p>
+
+
     <% if @addresses.any? %>
       <h4>Select Addresses</h4>
       <% @addresses.each do |address| %>
@@ -45,16 +53,21 @@
       <% end %>
     <% end %>
 
-      <%= f.fields_for('address_attributes', @address) do |form| %>
-        <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
-          <fieldset id="shipping" data-hook>
-            <%= f.fields_for :bill_address do |bill_form| %>
-              <legend align="center">Recipient Address</legend>
-              <%= render :partial => 'spree/address/form', :locals => { form: form,
-                address_type: 'shipping', address: @address } %>
-            <% end %>
-          </fieldset>
-        </div>
+    <br class='clear'/>
+    <%= f.fields_for('address_attributes', @address) do |form| %>
+    <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
+      <fieldset id="shipping" data-hook>
+        <%= f.fields_for :bill_address do |bill_form| %>
+        <legend align="center">Recipient Address</legend>
+        <%= render :partial => 'spree/address/form', :locals => { form: form,
+          address_type: 'shipping', address: @address } %>
+          <% end %>
+          <% if spree_current_user %>
+            <%= check_box_tag :save_to_address_book, true, false, id: 'two' %>
+            <%= label_tag :save_to_address_book, nil, for: 'two' %>
+          <% end %>
+        </fieldset>
+      </div>
       <% end %>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>

@@ -1,7 +1,7 @@
 module Spree
   class ProofController < Spree::StoreController
     def create
-      
+
     end
     def show
       proof = Recipient.find(params[:id]).proof.path

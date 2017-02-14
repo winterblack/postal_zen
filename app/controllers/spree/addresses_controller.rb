@@ -14,7 +14,17 @@ class Spree::AddressesController < Spree::StoreController
 
   def create
     if params[:commit] == 'Import Contacts'
-      import_contacts
+      begin
+        import_contacts
+      rescue
+        redirect_to addresses_url, flash: { error: 'Enter valid API Key and User Code'}
+      end
+    elsif params[:commit] == 'CSV Upload'
+      begin
+        import_csv
+      rescue
+        redirect_to addresses_url, flash: { error: 'Attach a valid CSV file'}
+      end
     else
       respond_to do |format|
         if create_address address_params
@@ -84,7 +94,23 @@ class Spree::AddressesController < Spree::StoreController
         })
       end
     end
-    redirect_to addresses_url
+    redirect_to addresses_url, notice: 'Addresses uploaded'
+  end
+
+  def import_csv
+    addresses = params[:addresses]
+    CSV.foreach(addresses.path, headers: true) do |row|
+      address_attributes = row.to_hash
+      # Find the country and state ids
+      country = find_country(address_attributes['country']) || Country.find(232)
+      state = find_state(address_attributes['state'], country.id)
+      address_attributes[:country_id] = country.id
+      address_attributes[:state_id] = state.id
+      address_attributes.except!('country', 'state')
+      # Create address and add its id to array
+      address = create_address address_attributes
+    end
+    redirect_to addresses_url, notice: 'Addresses uploaded'
   end
 
   # Use callbacks to share common setup or constraints between actions.

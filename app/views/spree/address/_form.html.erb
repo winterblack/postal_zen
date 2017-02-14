@@ -40,6 +40,8 @@
             class: 'required', autocomplete: address_type + ' country-name' %>
       </span>
     </p>
+  <% else %>
+    <%= form.hidden_field :country_id %>
   <% end %>
 
   <% if Spree::Config[:address_requires_state] %>
