@@ -1,10 +1,14 @@
 module Spree
   class OrderUpdater
     attr_reader :order
-    delegate :payments, :line_items, :adjustments, :all_adjustments, :shipments, :update_hooks, :quantity, to: :order
+    delegate :payments, :adjustments, :all_adjustments, :shipments, :update_hooks, :quantity, to: :order
 
     def initialize(order)
       @order = order
+    end
+
+    def line_items
+      order.line_items.except(&:frozen?)
     end
 
     # This is a multi-purpose method for processing logic related to changes in the Order.

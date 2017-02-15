@@ -780,7 +780,7 @@ ul#products {
 }
 
 #billing, #shipping, #shipping_method,
-#payment, #order_details, #order_summary {
+#payment, #order_details, #order_summary, #return {
   margin-top: 10px;
   border: $default_border;
   padding: 10px;
@@ -807,7 +807,7 @@ legend {
   }
 }
 
-#billing, #shipping {
+#billing, #shipping, #return {
   input[type="text"], input[type="email"],
   input[type="tel"], input[type="number"],
   select, textarea {

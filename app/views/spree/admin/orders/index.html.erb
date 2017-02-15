@@ -5,7 +5,7 @@
   <li>
     <%= button_link_to Spree.t(:new_order), new_admin_order_url, :id => 'admin_new_order' %>
   </li>
-<% end if can? :create, Spree::Order %>
+<% end if can? :edit, Spree::Order.new %>
 
 <% content_for :table_filter_title do %>
   <%= Spree.t(:search) %>
@@ -32,6 +32,11 @@
           <div class="field">
             <%= label_tag :q_state_eq, Spree.t(:status) %>
             <%= f.select :state_eq, Spree::Order.state_machines[:state].states.collect {|s| [Spree.t("order_state.#{s.name}"), s.value]}, {:include_blank => true}, :class => 'select2' %>
+          </div>
+
+          <div class="field">
+            <%= label_tag nil, Spree.t(:promotion) %>
+            <%= f.text_field :promotions_codes_value_cont, :size => 25 %>
           </div>
 
           <div class="field">
@@ -135,7 +140,6 @@
         <% end %>
         <th><%= sort_link @search, :email %></th>
         <th><%= sort_link @search, :total %></th>
-        <th><%= sort_link @search, :shipment_state, 'Delivery Status' %></th>
         <th data-hook="admin_orders_index_header_actions" class="actions"></th>
       </tr>
     </thead>
@@ -160,11 +164,11 @@
         <td>
           <div class="field">
             <%= form_for order, method: :patch do |f| %>
-              <%= f.select :shipment_state, ['processing', 'en_route', 'delivered'] %>
+            <%= f.select :shipment_state, ['processing', 'en_route', 'delivered'] %>
           </div>
-        </td>
-        <td class='actions align-center' data-hook="admin_orders_index_row_actions">
-          <%= link_to_edit_url edit_admin_order_path(order), :title => "admin_edit_#{dom_id(order)}", :no_text => true %>
+          </td>
+          <td class='actions align-center' data-hook="admin_orders_index_row_actions">
+            <%= link_to_edit_url edit_admin_order_path(order), :title => "admin_edit_#{dom_id(order)}", :no_text => true %>
             <%= button_tag type: :submit, style: 'background: transparent; color: #5498DA;' do %>
               <i class='fa fa-ok no-text with-tip' title='save shipment state'></i>
             <% end %>

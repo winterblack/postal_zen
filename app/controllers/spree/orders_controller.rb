@@ -69,8 +69,11 @@ module Spree
 
       begin
         @line_item = @order.contents.add(variant, quantity, content, content_file, cover, deliver_on, address_ids)
-        lob_errors = lob_test(@line_item).try(:message)
-        @order.errors.add(:base, 'Address must include a company or name') if lob_errors
+        lob_error = lob_test(@line_item)
+        if lob_error
+          @order.errors.add(:base, lob_error)
+          @order.remove_item(@line_item)
+        end
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end
@@ -87,7 +90,6 @@ module Spree
         end
       end
     end
-
 
     def populate_redirect
       flash[:error] = Spree.t(:populate_get_error)
@@ -126,22 +128,48 @@ module Spree
     def lob_test line_item
       begin
         lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
-        if line_item.product.property('lob') == 'postcard'
+        endpoint = line_item.product.property 'lob'
+        if line_item.content_file.exists?
+          content = File.new(line_item.content_file.path)
+        else
+          content = "<html>#{line_item.content}</html>"
+        end
+        if params[:use_billing_address]
+          return_address = @order.bill_address
+        else
+          return_address = Address.new(order_params[:return_address])
+        end
+        if endpoint == 'postcard'
           line_item.recipients.each do |recipient|
             address = recipient.address
-            proof = lob.postcards.create(
+            lob.postcards.create(
               to: lob_address(address),
-              from: lob_address(@order.bill_address),
+              from: lob_address(return_address),
               front: File.new(line_item.cover.path(:postcard)),
-              back: "<html>#{line_item.content}</html>",
+              back: content,
               data: lob_address(address)
             )
-            sleep 2
-            recipient.update(proof: proof['url'])
+          end
+        elsif endpoint == 'letter'
+          line_item.recipients.each do |recipient|
+            address = recipient.address
+            lob.letters.create(
+              to: lob_address(address),
+              from: lob_address(return_address),
+              file: content,
+              data: lob_address(address),
+              color: true
+            )
           end
         end
+        nil
       rescue => e
-        return e
+        message = JSON.parse(e.http_body)['error']['message']
+        if message.include?('company is required')
+          return 'Address must include a name or company'
+        else
+          return message
+        end
       end
     end
 
@@ -207,7 +235,8 @@ module Spree
 
     def order_params
       if params[:order]
-        params.require(:order).permit(:shipment_state, :address_attributes=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}])
+        params.require(:order).permit(:shipment_state, :address_attributes=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}],
+                                                       :return_address=>[:id, :firstname, :lastname, :first_name, :last_name, :address1, :address2, :city, :country_id, :state_id, :zipcode, :phone, :state_name, :country_iso, :alternative_phone, :company, {:country=>[:iso, :name, :iso3, :iso_name], :state=>[:name, :abbr]}])
       else
         {}
       end

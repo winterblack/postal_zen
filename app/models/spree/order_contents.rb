@@ -92,6 +92,7 @@ module Spree
         quantity: 0,
         variant: variant,
         content: content,
+        content_file: content_file,
         cover: cover,
         deliver_on: deliver_on,
         addresses: Address.find(address_ids)

@@ -32,8 +32,8 @@
     <h4>Upload Addresses</h4>
     <p><%= file_field_tag :addresses %>
       <% if spree_current_user %>
-        <%= check_box_tag :save_to_address_book, true, false, id: 'one' %>
-        <%= label_tag :save_to_address_book, nil, for: 'one' %>
+        <%= check_box_tag :save_to_address_book, true, false, id: 'save' %>
+        <%= label_tag :save_to_address_book, nil, for: 'save' %>
       <% end %>
     </p>
 
@@ -57,18 +57,46 @@
     <%= f.fields_for('address_attributes', @address) do |form| %>
     <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
       <fieldset id="shipping" data-hook>
-        <%= f.fields_for :bill_address do |bill_form| %>
         <legend align="center">Recipient Address</legend>
         <%= render :partial => 'spree/address/form', :locals => { form: form,
           address_type: 'shipping', address: @address } %>
-          <% end %>
           <% if spree_current_user %>
-            <%= check_box_tag :save_to_address_book, true, false, id: 'two' %>
-            <%= label_tag :save_to_address_book, nil, for: 'two' %>
+            <%= check_box_tag :save_to_address_book, true, false, id: 'save-2' %>
+            <%= label_tag :save_to_address_book, nil, for: 'save-2' %>
           <% end %>
         </fieldset>
       </div>
       <% end %>
+      <%= f.fields_for('return_address', @address) do |form| %>
+      <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
+        <fieldset id="return" data-hook>
+          <legend align="center">Return Address</legend>
+          <%= render :partial => 'spree/address/form', :locals => { form: form,
+            address_type: 'shipping', address: @address } %>
+            <% if spree_current_user.bill_address %>
+              <%= check_box_tag :use_billing_address %>
+              <%= label_tag :use_billing_address %>
+            <% end %>
+          </fieldset>
+        </div>
+        <% end %>
+
+        <script>
+          use_billing_address = $('input#use_billing_address');
+          use_billing_address.change(function() {
+            return update_return_address(use_billing_address);
+          });
+          update_return_address = function(use_billing_address) {
+            if (use_billing_address.is(':checked')) {
+              $('#return .inner').hide();
+              return $('#return .inner input, #return .inner select').prop('disabled', true);
+            } else {
+              $('#return .inner').show();
+              $('#return .inner input, #return .inner select').prop('disabled', false);
+              return updateState('s');
+            }
+          };
+        </script>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
       <div id="product-variants" class="columns five alpha">

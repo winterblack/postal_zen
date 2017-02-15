@@ -16,8 +16,7 @@ module Spree
     has_attached_file :content_file,
                       url: '/spree/line_items/:id/content/:basename.:extension',
                       path: ':rails_root/public/spree/line_items/:id/content/:basename.:extension'
-    validates_attachment_content_type :content_file, content_type: 'application/pdf'
-
+    validates_attachment_content_type :content_file, content_type: /\Aapplication\/pdf/
 
     class CurrencyMismatch < StandardError; end
 

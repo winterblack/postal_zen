@@ -149,7 +149,7 @@ module Spree
     # @return [true] whether or not the address requires a phone number to be
     #   valid
     def require_phone?
-      true
+      false
     end
 
     # @todo Remove this from the public API if possible.

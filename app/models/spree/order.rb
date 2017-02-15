@@ -464,6 +464,11 @@ module Spree
       persist_totals
     end
 
+    def remove_item item
+      item.destroy
+      update!
+    end
+
     alias_method :has_step?, :has_checkout_step?
     deprecate has_step?: :has_checkout_step?, deprecator: Spree::Deprecation
 
