@@ -57,19 +57,20 @@ module Spree
       address_ids = get_address_ids
       quantity = address_ids.count
 
-      if !address_ids
-        flash[:error] = "Please select an address"
-        return redirect_to product_path(variant.product.slug)
+      @order.errors.add(:base, "Select an address") if address_ids.empty?
+      if variant.product.property('cover') && !cover
+        @order.errors.add(:base, "Attach a cover image")
       end
 
       # 2,147,483,647 is crazy. See issue https://github.com/spree/spree/issues/2695.
-      if !quantity.between?(1, 2_147_483_647)
-        @order.errors.add(:base, Spree.t(:please_enter_reasonable_quantity))
+      if quantity > 2_147_483_646
+        @order.errors.add(:base, "Too many addresses")
       end
 
       begin
         @line_item = @order.contents.add(variant, quantity, content, content_file, cover, deliver_on, address_ids)
-        lob_test @line_item
+        lob_errors = lob_test(@line_item).try(:message)
+        @order.errors.add(:base, 'Address must include a company or name') if lob_errors
       rescue ActiveRecord::RecordInvalid => e
         @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end
@@ -78,7 +79,7 @@ module Spree
         format.html do
           if @order.errors.any?
             flash[:error] = @order.errors.full_messages.join(", ")
-            redirect_back_or_default(spree.root_path)
+            redirect_to product_path(variant.product)
             return
           else
             redirect_to cart_path
@@ -123,23 +124,29 @@ module Spree
     private
 
     def lob_test line_item
-      lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
-      if line_item.product.property('lob') == 'postcard'
-        line_item.recipients.each do |recipient|
-          address = recipient.address
-          proof = lob.postcards.create(
-            to: lob_address(address),
-            from: lob_address(@order.bill_address),
-            front: File.new(line_item.cover.path(:postcard)),
-            back: "<html>#{line_item.content}</html>"
-          )
-          sleep 2
-          recipient.update(proof: proof['url'])
+      begin
+        lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
+        if line_item.product.property('lob') == 'postcard'
+          line_item.recipients.each do |recipient|
+            address = recipient.address
+            proof = lob.postcards.create(
+              to: lob_address(address),
+              from: lob_address(@order.bill_address),
+              front: File.new(line_item.cover.path(:postcard)),
+              back: "<html>#{line_item.content}</html>",
+              data: lob_address(address)
+            )
+            sleep 2
+            recipient.update(proof: proof['url'])
+          end
         end
+      rescue => e
+        return e
       end
     end
 
     def lob_address address
+
       return nil unless address
       {
         name: address.full_name,

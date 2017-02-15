@@ -4,7 +4,7 @@
     <% address = recipient.address %>
     <div class="columns alpha four address-book">
       <fieldset>
-        <span class="right"><%= link_to 'Proof', proof_path(recipient), target: '_blank' %></span>
+        <span class="right"><%= link_to 'Proof', proof_path(recipient, format: :pdf), target: '_blank' %></span>
         <br>
         <%= render :partial => 'spree/shared/address', locals: { address: address } %>
       </fieldset>
