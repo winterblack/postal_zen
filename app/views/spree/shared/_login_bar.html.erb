@@ -1,6 +1,6 @@
 <% if spree_current_user %>
-  <li class="columns three offset-by-three"><%= link_to Spree.t(:my_account), spree.account_path %></li>
+  <li class="columns three offset-by-one"><%= link_to Spree.t(:my_account), spree.account_path %></li>
   <li class="columns two"><%= link_to Spree.t(:logout), spree.logout_path %></li>
 <% else %>
-  <li class="columns two offset-by-six" id="link-to-login"><%= link_to Spree.t(:login), spree.login_path %></li>
+  <li class="columns two offset-by-four" id="link-to-login"><%= link_to Spree.t(:login), spree.login_path %></li>
 <% end %>

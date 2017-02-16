@@ -1,19 +1,23 @@
+<% if current_order.try(:checkout_allowed?) %>
+  <nav class="columns sixteen">
+    <ul id="main-nav-bar" class="inline container" data-hook>
+      <li id="link-to-cart" class="columns three" data-hook>
+        <noscript>
+          <%= link_to Spree.t(:cart), '/cart' %>
+        </noscript>
+      </li>
+      <script>Spree.fetch_cart('<%= j spree.cart_link_url %>')</script>
+    </ul>
+  </nav>
+<% end %>
 <nav class="columns sixteen">
   <ul id="main-nav-bar" class="inline container" data-hook>
-    <figure id="logo" class="columns four" data-hook><%= logo %></figure>
-    <li id="link-to-cart" class="columns three" data-hook>
-      <noscript>
-        <%= link_to Spree.t(:cart), '/cart' %>
-      </noscript>
+
+    <li class="columns four" data-hook>
+      <figure id="logo" class="columns four" data-hook><%= logo %></figure>
     </li>
-    <script>Spree.fetch_cart('<%= j spree.cart_link_url %>')</script>
-  </ul>
-</nav>
-<nav class="columns sixteen">
-  <ul id="main-nav-bar" class="inline container" data-hook>
-    <li class="columns two" data-hook><%= link_to 'home', '/#home' %></li>
-    <li class="columns two" data-hook><%= link_to 'store', '/products' %></li>
-    <li class="columns two" data-hook><%= link_to 'about', '/#about' %></li>
+    <li class="columns two" data-hook><%= link_to 'products', '/products' %></li>
+    <li align="right" class="columns two" data-hook><%= link_to 'about', '/#about' %></li>
     <li class="columns two" data-hook><%= link_to 'contact', '/#contact' %></li>
     <li id="auth" data-hook></li>
   </ul>

@@ -4,5 +4,5 @@ Deface::Override.new(
   insert_before: "li#auth",
   partial: "spree/shared/login_bar",
   disabled: false,
-  original: 'eb3fa668cd98b6a1c75c36420ef1b238a1fc55ac'
+  original: 'eb3fa668cd98b6a1c75c36420ef1b238a1fc55ac',
 )
