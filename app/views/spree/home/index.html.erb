@@ -17,15 +17,29 @@
       <h2>Simple Mail in Seconds</h2>
       <div class="one-third column">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+        <p>Our simple forms, automation and scheduled processes are built to save you time.</p>
       </div>
       <div class="one-third column">
-        <i class="fa fa-file-text" aria-hidden="true"></i>
-        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <p>Build, save and store custom letters and templates. You'll be able to send unique items every time.</p>
       </div>
       <div class="one-third column">
-        <i class="fa fa-check-circle" aria-hidden="true"></i>
-        <p>We'll save you time... Avoid rushing to the post office, store or mail box just to make your deadline. In fact, you'll have a 24/7 post office at your fingertips. You might even be able to go for a run or hit the gym!</p>
+        <i class="fa fa-truck" aria-hidden="true"></i>
+        <p>Track your items from submittal to delivery. You'll never lose oversight again.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="one-third column">
+        <i class="fa fa-shield" aria-hidden="true"></i>
+        <p>Rest easy knowing your data is secure. We use 256-bit SSL encryption to ensure you never have to worry.</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa fa-money" aria-hidden="true"></i>
+        <p>You'll save time by creating scheduled mailing, batching, and creating mail merge documents right from your browser.</p>
+      </div>
+      <div class="one-third column">
+        <i class="fa fa-mobile" aria-hidden="true"></i>
+        <p>Never worry about not being near your desktop, we're 100% mobile friendly.</p>
       </div>
     </div>
   </section>
@@ -59,7 +73,8 @@
     <div class="dark-back">
       <div class="container">
         <h1>Like what you see?</h1>
-        <button class="home-button">Try Us Free</button>
+        <%= button_to 'Try PostalZen', signup_path, method: :get, class: 'try' %>
+        <%= button_to 'Request a Demo', 'https://calendly.com/postalzen/product-demo', method: :get %>
       </div>
     </div>
   </section>
@@ -96,4 +111,7 @@
         <p>Our hours are Monday through Friday <br>8 A.M. to 5 P.M. PST</p>
       </div>
   </section>
+  <a href="#" class="back-to-top" style="display: inline;">
+    <i class="fa fa-arrow-circle-up"></i>
+  </a>
 </div>

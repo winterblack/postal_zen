@@ -73,7 +73,7 @@
           <legend align="center">Return Address</legend>
           <%= render :partial => 'spree/address/form', :locals => { form: form,
             address_type: 'shipping', address: @address } %>
-            <% if spree_current_user.bill_address %>
+            <% if spree_current_user.try(:bill_address) %>
               <%= check_box_tag :use_billing_address %>
               <%= label_tag :use_billing_address %>
             <% end %>
