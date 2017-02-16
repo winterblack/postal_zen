@@ -1,5 +1,6 @@
 module Spree
   class HomeController < Spree::StoreController
+    layout '/layouts/application'
     def index
     end
 

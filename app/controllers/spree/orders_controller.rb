@@ -129,7 +129,7 @@ module Spree
 
     def lob_test line_item
       begin
-        lob = Lob::Client.new(api_key: ENV['lob_test'])
+        lob = Lob::Client.new(api_key: ENV['LOB_TEST'])
         endpoint = line_item.product.property 'lob'
         if line_item.content_file.exists?
           content = File.new(line_item.content_file.path)
