@@ -82,4 +82,3 @@ production:
   <<: *default
   database: postal_zen_production
   username: postal_zen
-  password: <%= ENV['POSTAL_ZEN_DATABASE_PASSWORD'] %>

@@ -67,15 +67,17 @@ module Spree
         @order.errors.add(:base, "Too many addresses")
       end
 
-      begin
-        @line_item = @order.contents.add(variant, quantity, content, content_file, cover, deliver_on, address_ids)
-        lob_error = lob_test(@line_item)
-        if lob_error
-          @order.errors.add(:base, lob_error)
-          @order.remove_item(@line_item)
+      unless @order.errors.any?
+        begin
+          @line_item = @order.contents.add(variant, quantity, content, content_file, cover, deliver_on, address_ids)
+          lob_error = lob_test(@line_item)
+          if lob_error
+            @order.errors.add(:base, lob_error)
+            @order.remove_item(@line_item)
+          end
+        rescue ActiveRecord::RecordInvalid => e
+          @order.errors.add(:base, e.record.errors.full_messages.join(", "))
         end
-      rescue ActiveRecord::RecordInvalid => e
-        @order.errors.add(:base, e.record.errors.full_messages.join(", "))
       end
 
       respond_with(@order) do |format|
@@ -127,48 +129,57 @@ module Spree
 
     def lob_test line_item
       begin
-        lob = Lob::Client.new(api_key: 'test_177c902b9fe8bda31018ccbbcea708809f0')
+        lob = Lob::Client.new(api_key: ENV['lob_test'])
         endpoint = line_item.product.property 'lob'
         if line_item.content_file.exists?
           content = File.new(line_item.content_file.path)
         else
-          content = "<html>#{line_item.content}</html>"
+          content = lob_postcard(line_item.content) if endpoint == 'postcard'
+          content = "<html style='margin:.5in;'>#{line_item.content}</html>" if endpoint == 'letter'
         end
         if params[:use_billing_address]
           return_address = @order.bill_address
         else
           return_address = Address.new(order_params[:return_address])
+          return_address = nil unless return_address.valid?
         end
         if endpoint == 'postcard'
           line_item.recipients.each do |recipient|
             address = recipient.address
-            lob.postcards.create(
+            proof = lob.postcards.create(
               to: lob_address(address),
               from: lob_address(return_address),
               front: File.new(line_item.cover.path(:postcard)),
               back: content,
               data: lob_address(address)
             )
+            recipient.update_attribute(:proof_url, proof['url'])
           end
         elsif endpoint == 'letter'
           line_item.recipients.each do |recipient|
             address = recipient.address
-            lob.letters.create(
+            proof = lob.letters.create(
               to: lob_address(address),
               from: lob_address(return_address),
               file: content,
               data: lob_address(address),
-              color: true
+              color: true,
+              address_placement: 'insert_blank_page'
             )
+            recipient.update_attribute(:proof_url, proof['url'])
           end
         end
         nil
       rescue => e
-        message = JSON.parse(e.http_body)['error']['message']
-        if message.include?('company is required')
-          return 'Address must include a name or company'
+        if e.respond_to?(:http_body)
+          message = JSON.parse(e.http_body)['error']['message']
+          if message.include?('company is required')
+            return 'Address must include a name or company'
+          else
+            return message
+          end
         else
-          return message
+          return e
         end
       end
     end
@@ -187,6 +198,42 @@ module Spree
         address_country: address.country.iso,
         address_zip: address.zipcode
       }
+    end
+
+    def lob_postcard content
+      "<style>
+      body {
+        width: 6.25in;
+        height: 4.25in;
+        margin: 0;
+        padding: 0;
+      }
+
+      #safe-area {
+        position: absolute;
+        width: 5.875in;
+        height: 3.875in;
+        left: 0.1875in;
+        top: 0.1875in;
+        background-color: rgba(255,255,255,0.5);
+      }
+
+      .text {
+        margin: 10px;
+        width: 220px;
+      }
+      </style>
+      </head>
+
+      <body>
+        <div id='safe-area'>
+          <div class='text'>
+            #{content}
+          </div>
+        </div>
+      </body>
+
+      </html>"
     end
 
     def backend?
