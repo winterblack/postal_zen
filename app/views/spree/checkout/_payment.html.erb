@@ -35,7 +35,7 @@
       </div>
     <% end %>
 
-    <% if @order.available_payment_methods.count > 1 %>
+    <% if @order.available_payment_methods.count > 0 %>
       <div id="payment-method-fields" data-hook>
         <% @order.available_payment_methods.each do |method| %>
         <p>
