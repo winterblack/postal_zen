@@ -168,13 +168,12 @@
       return update_return_address(use_billing_address);
     });
     update_return_address = function(use_billing_address) {
-      if (use_billing_address.is(':checked')) {F
+      if (use_billing_address.is(':checked')) {
         $('#return .inner').hide();
         return $('#return .inner input, #return .inner select').prop('disabled', true);
       } else {
         $('#return .inner').show();
         $('#return .inner input, #return .inner select').prop('disabled', false);
-        return updateState('s');
       }
     };
   })

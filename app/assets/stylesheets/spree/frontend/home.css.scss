@@ -165,34 +165,20 @@
     }
   }
 
-  @media (min-width: 375px) {
+  @media (max-width: 769px) {
     section.module.parallax {
       h1, h2 {
-        padding: 50px 0;
+        padding: 20px 0;
       }
-    }
-    section.module p {
-      font-size: 20px;
-    }
-    section.module.content.testimonials {
-      padding: 10px;
     }
     section.module input, button {
       margin: 0;
     }
-    section.module input.try {
-      margin-bottom: 50px;
-    }
-  }
-  @media (min-width: 481px) {
-    section.module h2 {
-      font-size: 42px;
-    }
-    section.module p {
+    section.module.content p {
       font-size: 20px;
     }
-    section.module.content.testimonials p {
-      font-size: 40px;
+    section.module .try {
+      margin-bottom: 20px;
     }
   }
   @media (min-width: 770px) {

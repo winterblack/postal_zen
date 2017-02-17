@@ -33,11 +33,8 @@
     <td class="cart-item-quantity" data-hook="cart_item_quantity">
       <%= line_item.quantity %>
     </td>
-    <td class="cart-item-total" data-hook="cart_item_total">
+    <td colspan='2' class="cart-item-total" data-hook="cart_item_total">
       <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>
-    </td>
-    <td class="cart-item-delete" data-hook="cart_item_delete">
-      <%= link_to image_tag('icons/delete.png'), '#', :class => 'delete', :id => "delete_#{dom_id(line_item)}" %>
     </td>
   </tr>
 <% end -%>

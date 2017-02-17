@@ -138,7 +138,7 @@ module Spree
           content = "<html style='margin:.5in;'>#{line_item.content}</html>" if endpoint == 'letter'
         end
         if params[:use_billing_address]
-          return_address = @order.bill_address
+          return_address = spree_current_user.bill_address
         else
           return_address = Address.new(order_params[:return_address])
           return_address = nil unless return_address.valid?

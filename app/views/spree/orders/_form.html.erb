@@ -6,8 +6,7 @@
       <th class="cart-item-description-header"><%= Spree.t(:item) %></th>
       <th class="cart-item-price-header"><%= Spree.t(:price) %></th>
       <th class="cart-item-quantity-header"><%= Spree.t(:qty) %></th>
-      <th class="cart-item-total-header"><%= Spree.t(:total) %></th>
-      <th class="cart-item-delete-header"></th>
+      <th colspan='2' class="cart-item-total-header"><%= Spree.t(:total) %></th>
     </tr>
   </thead>
   <tbody id="line_items" data-hook>
@@ -23,7 +22,7 @@
   <% end %>
   <tr class="cart-total">
     <td colspan="4" align='right'><h5><%= Spree.t(:total) %></h5></th>
-    <td colspan align='center'><h5><%= order_form.object.display_total %></h5></td>
+    <td align='center'><h5><%= order_form.object.display_total %></h5></td>
     <td></td>
   </tr>
 </table>

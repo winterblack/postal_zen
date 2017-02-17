@@ -24,7 +24,9 @@
           <%= render partial: 'spree/address/form', locals: { form: bill_form,
             address_type: 'billing', address: @user.bill_address } %>
         <% end %>
-      </fieldset>
+        <div class="form-buttons column" data-hook="buttons">
+          <%= f.submit Spree.t(:update), class: 'button primary' %>
+        </div>
     </div>
   <% end %>
 </div>
