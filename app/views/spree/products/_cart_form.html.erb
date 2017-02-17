@@ -160,7 +160,9 @@
     })
     $('#message-tabs').tabs()
     $('#address-tabs').tabs()
-    $('#return .inner').hide();
+    if $('input#use_billing_address') {
+      $('#return .inner').hide();
+    }
     use_billing_address = $('input#use_billing_address');
     use_billing_address.change(function() {
       return update_return_address(use_billing_address);

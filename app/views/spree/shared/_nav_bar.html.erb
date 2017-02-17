@@ -15,10 +15,20 @@
 
     <li class="columns four" data-hook>
       <figure id="logo" class="columns four" data-hook><%= logo %></figure>
+      <i id='menu-drop' class="fa fa-bars" aria-hidden="true"></i>
     </li>
-    <li class="columns two" data-hook><%= link_to 'products', '/products' %></li>
-    <li align="right" class="columns two" data-hook><%= link_to 'about', '/#about' %></li>
-    <li class="columns two" data-hook><%= link_to 'contact', '/#contact' %></li>
-    <li id="auth" data-hook></li>
+    <div id='menu'>
+      <li class="columns two" data-hook><%= link_to 'products', '/products' %></li>
+      <li class="columns two" data-hook><%= link_to 'about', '/#about' %></li>
+      <li class="columns two" data-hook><%= link_to 'contact', '/#contact' %></li>
+      <li id="auth" data-hook></li>
+    </div>
   </ul>
 </nav>
+<script>
+  $(document).ready( () => {
+    $('#menu-drop').click( () => {
+      $('#menu').toggle('show')
+    })
+  })
+</script>

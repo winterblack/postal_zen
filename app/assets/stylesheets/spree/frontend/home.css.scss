@@ -142,7 +142,49 @@
     background-color: transparent;
     background-image: url("home.png");
   }
-  @media all and (min-width: 480px) {
+  @media (max-width: 374px) {
+    section.module.parallax {
+      h1, h2 {
+        padding: 40px 0;
+      }
+    }
+    section.module p {
+      font-size: 20px;
+    }
+    section.module.content.testimonials {
+      p {
+        font-size: 30px;
+      }
+      padding: 10px;
+    }
+    section.module input, button {
+      margin: 0;
+    }
+    section.module input.try {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media (min-width: 375px) {
+    section.module.parallax {
+      h1, h2 {
+        padding: 50px 0;
+      }
+    }
+    section.module p {
+      font-size: 20px;
+    }
+    section.module.content.testimonials {
+      padding: 10px;
+    }
+    section.module input, button {
+      margin: 0;
+    }
+    section.module input.try {
+      margin-bottom: 50px;
+    }
+  }
+  @media (min-width: 481px) {
     section.module h2 {
       font-size: 42px;
     }
@@ -153,7 +195,7 @@
       font-size: 40px;
     }
   }
-  @media all and (min-width: 770px) {
+  @media (min-width: 770px) {
     section.module h2 {
       font-size: 42px;
     }

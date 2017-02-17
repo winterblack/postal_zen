@@ -350,6 +350,8 @@ nav #main-nav-bar {
 
   li {
 
+    text-align: center;
+
     a {
       font-size: $horizontal_navigation_font_size;
       padding: 5px;
@@ -1201,8 +1203,27 @@ table.order-summary {
   }
 }
 
+#menu-drop {
+  display: none;
+}
+
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
+
+  #logo {
+    width: 50%;
+  }
+  #menu-drop {
+    display: block;
+    float: right;
+    font-size: 40px;
+  }
+  #menu {
+    display: none;
+    li {
+      padding: 10px 0;
+    }
+  }
 
   html {
     -webkit-text-size-adjust: none;
