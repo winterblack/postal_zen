@@ -263,11 +263,11 @@ module Spree
         # Find the country and state ids
         country = find_country(address_attributes['country']) || Country.find(232)
         state = find_state(address_attributes['state'], country.id)
-        address_attributes[:country_id] = country.id
-        address_attributes[:state_id] = state.id
+        address_attributes[:country_id] = country.try(:id)
+        address_attributes[:state_id] = state.try(:id)
         address_attributes.except!('country', 'state')
         # Create address and add its id to array
-        address = Spree::Address.create! address_attributes
+        address = Address.create address_attributes
         save_to_address_book address.id
         address_ids << address.id
       end

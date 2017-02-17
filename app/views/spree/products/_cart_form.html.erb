@@ -20,16 +20,8 @@
 
         <div id="editor">
           <p><%= text_area_tag 'content', @template, id: 'rich-text-editor' %></p>
-          <script>
-            $('#rich-text-editor').froalaEditor({
-              imageManagerPreloader: '/image_manager/loading.gif',
-              imageManagerLoadURL: '/image_manager',
-              height: 480
-            })
-          </script>
         </div>
       </div>
-      <script>$('#message-tabs').tabs()</script>
     <% end %>
 
     <h4>Who would you like to send it to?</h4>
@@ -79,7 +71,6 @@
           </div>
         <% end %>
       </div>
-      <script>$('#address-tabs').tabs()</script>
     </div>
 
     <%= f.fields_for('return_address', @address) do |form| %>
@@ -91,23 +82,6 @@
         <% if spree_current_user.try(:bill_address) %>
           <%= check_box_tag :use_billing_address, true, true %>
           <%= label_tag :use_billing_address %>
-          <script>
-            $('#return .inner').hide();
-            use_billing_address = $('input#use_billing_address');
-            use_billing_address.change(function() {
-              return update_return_address(use_billing_address);
-            });
-            update_return_address = function(use_billing_address) {
-              if (use_billing_address.is(':checked')) {F
-                $('#return .inner').hide();
-                return $('#return .inner input, #return .inner select').prop('disabled', true);
-              } else {
-                $('#return .inner').show();
-                $('#return .inner input, #return .inner select').prop('disabled', false);
-                return updateState('s');
-              }
-            };
-          </script>
         <% end %>
       </div>
     <% end %>
@@ -177,3 +151,29 @@
     <% end %>
   </div>
 <% end %>
+<script>
+  $(document).ready( () => {
+    $('#rich-text-editor').froalaEditor({
+      imageManagerPreloader: '/image_manager/loading.gif',
+      imageManagerLoadURL: '/image_manager',
+      height: 480
+    })
+    $('#message-tabs').tabs()
+    $('#address-tabs').tabs()
+    $('#return .inner').hide();
+    use_billing_address = $('input#use_billing_address');
+    use_billing_address.change(function() {
+      return update_return_address(use_billing_address);
+    });
+    update_return_address = function(use_billing_address) {
+      if (use_billing_address.is(':checked')) {F
+        $('#return .inner').hide();
+        return $('#return .inner input, #return .inner select').prop('disabled', true);
+      } else {
+        $('#return .inner').show();
+        $('#return .inner input, #return .inner select').prop('disabled', false);
+        return updateState('s');
+      }
+    };
+  })
+</script>

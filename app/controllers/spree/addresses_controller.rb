@@ -104,8 +104,8 @@ class Spree::AddressesController < Spree::StoreController
       # Find the country and state ids
       country = find_country(address_attributes['country']) || Country.find(232)
       state = find_state(address_attributes['state'], country.id)
-      address_attributes[:country_id] = country.id
-      address_attributes[:state_id] = state.id
+      address_attributes[:country_id] = country.try(:id)
+      address_attributes[:state_id] = state.try(:id)
       address_attributes.except!('country', 'state')
       # Create address and add its id to array
       address = create_address address_attributes
