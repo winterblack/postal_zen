@@ -92,6 +92,14 @@ dl {
   }
 }
 
+.container.ui-tabs-panel {
+  width: inherit;
+  .address-book {
+    float: left;
+    width: 172px;
+    margin: 5px 10px;
+  }
+}
 /*--------------------------------------*/
 /* Headers
 /*--------------------------------------*/
@@ -672,6 +680,10 @@ ul#products {
 }
 
 #cart-form {
+  h4 {
+    display: block;
+    margin-top: 20px;
+  }
   #inside-product-cart-form:after {
     content: " ";
     display: block;

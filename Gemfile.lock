@@ -362,6 +362,7 @@ DEPENDENCIES
   figaro
   jbuilder (~> 2.5)
   jquery-rails
+  jquery-ui-rails
   listen (~> 3.0.5)
   lob
   newrelic_rpm
@@ -382,6 +383,9 @@ DEPENDENCIES
   wicked_pdf
   wkhtmltopdf-binary
   wysiwyg-rails
+
+RUBY VERSION
+   ruby 2.3.3p222
 
 BUNDLED WITH
    1.12.5

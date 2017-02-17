@@ -2,101 +2,119 @@
   <div id="inside-product-cart-form" data-hook="inside_product_cart_form" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
     <% if @product.property 'cover' %>
-      <h4>Upload A Cover</h4>
+      <h4>Upload a Picture</h4>
       <p><%= file_field_tag :cover %></p>
     <% end %>
 
     <% if @product.property 'content' %>
       <h4>How would you like to submit your message?</h4>
-      <ul class="tabs">
-        <li><a href="#">Upload a Message</a></li>
-        <li><a href="#">Write a Message</a></li>
+      <div id="message-tabs">
+        <ul>
+          <li><a href="#upload-content">Upload a Message</a></li>
+          <li><a href="#editor">Write a Message</a></li>
+        </ul>
+
+        <div id="upload-content" class="container">
+          <p><%= file_field_tag :content_file %></p>
+        </div>
+
+        <div id="editor">
+          <p><%= text_area_tag 'content', @template, id: 'rich-text-editor' %></p>
+          <script>
+            $('#rich-text-editor').froalaEditor({
+              imageManagerPreloader: '/image_manager/loading.gif',
+              imageManagerLoadURL: '/image_manager',
+              height: 480
+            })
+          </script>
+        </div>
+      </div>
+      <script>$('#message-tabs').tabs()</script>
+    <% end %>
+
+    <h4>Who would you like to send it to?</h4>
+    <div id="address-tabs">
+      <ul>
+        <li><a href="#upload-address">Upload Addresses</a></li>
+        <% if @addresses.any? %><li><a href="#select-address">Address Book</a></li><% end %>
+        <li><a href="#new-address">New Address</a></li>
       </ul>
 
-      <div>Upload A Message</div>
-      <p><%= file_field_tag :content_file %></p>
+      <div id="upload-address">
+        <p>
+          <%= file_field_tag :addresses %>
+          <% if spree_current_user %>
+            <%= check_box_tag :save_to_address_book, true, false, id: 'save' %>
+            <%= label_tag :save_to_address_book, nil, for: 'save' %>
+          <% end %>
+        </p>
+      </div>
 
-      <div>Write a Message</div>
-      <p><%= text_area_tag 'content', @template, id: 'rich-text-editor' %></p>
-      <!-- <script>
-        $('#rich-text-editor').froalaEditor({
-          imageManagerPreloader: '/image_manager/loading.gif',
-          imageManagerLoadURL: '/image_manager',
-        })
-      </script> -->
-    <% end %>
-
-    <h4>What date would you like it sent?</h4>
-    <p><%= date_field_tag :deliver_on, Date.today, min: Date.today %></p>
-
-    <h4>Upload Addresses</h4>
-    <p><%= file_field_tag :addresses %>
-      <% if spree_current_user %>
-        <%= check_box_tag :save_to_address_book, true, false, id: 'save' %>
-        <%= label_tag :save_to_address_book, nil, for: 'save' %>
-      <% end %>
-    </p>
-
-
-    <% if @addresses.any? %>
-      <h4>Select Addresses</h4>
-      <% @addresses.each do |address| %>
-        <% next if address == spree_current_user.bill_address %>
-        <div class="columns alpha four address-book">
-          <fieldset>
-            <span class="right">
-              <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
-            </span>
-            <br>
-            <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+      <% if @addresses.any? %>
+        <div id="select-address" class="container">
+          <% @addresses.each do |address| %>
+            <% next if address == spree_current_user.bill_address %>
+            <div class="address-book">
+              <fieldset>
+              <span class="right">
+                <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
+              </span>
+              <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+            </div>
+          <% end %>
         </div>
       <% end %>
-    <% end %>
 
-    <br class='clear'/>
-    <%= f.fields_for('address_attributes', @address) do |form| %>
-    <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
-      <fieldset id="shipping" data-hook>
-        <legend align="center">Recipient Address</legend>
+      <div id="new-address" class="container">
+        <%= f.fields_for('address_attributes', @address) do |form| %>
+          <div style="width:100%" data-hook="shipping_fieldset_wrapper">
+            <fieldset id="shipping" data-hook>
+            <legend align="center">Recipient Address</legend>
+            <%= render :partial => 'spree/address/form', :locals => { form: form,
+              address_type: 'shipping', address: @address } %>
+            <% if spree_current_user %>
+              <%= check_box_tag :save_to_address_book, true, false, id: 'save-2' %>
+              <%= label_tag :save_to_address_book, nil, for: 'save-2' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <script>$('#address-tabs').tabs()</script>
+    </div>
+
+    <%= f.fields_for('return_address', @address) do |form| %>
+      <div class="columns fifteen" data-hook="shipping_fieldset_wrapper">
+        <fieldset id="return" data-hook>
+        <legend align="center">Return Address</legend>
         <%= render :partial => 'spree/address/form', :locals => { form: form,
           address_type: 'shipping', address: @address } %>
-          <% if spree_current_user %>
-            <%= check_box_tag :save_to_address_book, true, false, id: 'save-2' %>
-            <%= label_tag :save_to_address_book, nil, for: 'save-2' %>
-          <% end %>
-        </fieldset>
-      </div>
-      <% end %>
-      <%= f.fields_for('return_address', @address) do |form| %>
-      <div class="columns eight alpha" data-hook="shipping_fieldset_wrapper">
-        <fieldset id="return" data-hook>
-          <legend align="center">Return Address</legend>
-          <%= render :partial => 'spree/address/form', :locals => { form: form,
-            address_type: 'shipping', address: @address } %>
-            <% if spree_current_user.try(:bill_address) %>
-              <%= check_box_tag :use_billing_address %>
-              <%= label_tag :use_billing_address %>
-            <% end %>
-          </fieldset>
-        </div>
+        <% if spree_current_user.try(:bill_address) %>
+          <%= check_box_tag :use_billing_address, true, true %>
+          <%= label_tag :use_billing_address %>
+          <script>
+            $('#return .inner').hide();
+            use_billing_address = $('input#use_billing_address');
+            use_billing_address.change(function() {
+              return update_return_address(use_billing_address);
+            });
+            update_return_address = function(use_billing_address) {
+              if (use_billing_address.is(':checked')) {F
+                $('#return .inner').hide();
+                return $('#return .inner input, #return .inner select').prop('disabled', true);
+              } else {
+                $('#return .inner').show();
+                $('#return .inner input, #return .inner select').prop('disabled', false);
+                return updateState('s');
+              }
+            };
+          </script>
         <% end %>
+      </div>
+    <% end %>
 
-        <script>
-          use_billing_address = $('input#use_billing_address');
-          use_billing_address.change(function() {
-            return update_return_address(use_billing_address);
-          });
-          update_return_address = function(use_billing_address) {
-            if (use_billing_address.is(':checked')) {
-              $('#return .inner').hide();
-              return $('#return .inner input, #return .inner select').prop('disabled', true);
-            } else {
-              $('#return .inner').show();
-              $('#return .inner input, #return .inner select').prop('disabled', false);
-              return updateState('s');
-            }
-          };
-        </script>
+    <br class="clear">
+    <h4>What date would you like it sent?</h4>
+    <p><%= date_field_tag :deliver_on, Date.today, min: Date.today %></p>
 
     <% if @product.variants_and_option_values_for(current_pricing_options).any? %>
       <div id="product-variants" class="columns five alpha">

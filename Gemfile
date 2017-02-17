@@ -9,11 +9,13 @@ ruby '2.3.3'
 
 gem 'solidus'
 gem 'solidus_auth_devise'
+gem 'solidus_gateway'
+
 gem 'wysiwyg-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'solidus_gateway'
 gem 'lob'
+
 gem 'rake'
 gem 'rails', '~> 5.0.1'
 gem 'pg'
@@ -24,6 +26,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-ui-rails'
 
 group :production do
   gem 'newrelic_rpm'

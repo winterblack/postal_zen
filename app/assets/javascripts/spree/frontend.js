@@ -21,3 +21,4 @@
 //= require plugins/quote.min.js
 //= require plugins/save.min.js
 //= require plugins/table.min.js
+//= require jquery-ui
