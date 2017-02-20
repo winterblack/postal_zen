@@ -10,16 +10,16 @@
       <h4>How would you like to submit your message?</h4>
       <div id="message-tabs">
         <ul>
-          <li><a href="#upload-content">Upload a Message</a></li>
           <li><a href="#editor">Write a Message</a></li>
+          <li><a href="#upload-content">Upload a Message</a></li>
         </ul>
-
-        <div id="upload-content" class="container">
-          <p><%= file_field_tag :content_file %></p>
-        </div>
 
         <div id="editor">
           <p><%= text_area_tag 'content', @template, id: 'rich-text-editor' %></p>
+        </div>
+
+        <div id="upload-content" class="container">
+          <p><%= file_field_tag :content_file %></p>
         </div>
       </div>
     <% end %>
