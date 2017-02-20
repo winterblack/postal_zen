@@ -94,12 +94,18 @@ dl {
 
 .container.ui-tabs-panel {
   width: inherit;
-  .address-book {
+}
+
+.address-book {
+  width: 832px;
+  margin: auto;
+  .address-card {
     float: left;
-    width: 172px;
+    width: 188px;
     margin: 5px 10px;
   }
 }
+
 /*--------------------------------------*/
 /* Headers
 /*--------------------------------------*/
@@ -1187,7 +1193,9 @@ table.order-summary {
 
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {
-
+  .address-book {
+    width: 624px;
+  }
 }
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
@@ -1209,6 +1217,9 @@ table.order-summary {
 
 /* All Mobile Sizes (devices and browser) */
 @media only screen and (max-width: 767px) {
+  .address-book {
+    width: inherit;
+  }
 
   #logo {
     width: 50%;

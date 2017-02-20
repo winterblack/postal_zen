@@ -50,16 +50,18 @@
 
       <% if @addresses.any? %>
         <div id="select-address" class="container">
-          <% @addresses.each do |address| %>
-            <% next if address == spree_current_user.bill_address %>
-            <div class="address-book">
-              <fieldset>
-              <span class="right">
-                <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
-              </span>
-              <%= render :partial => 'spree/shared/address', locals: { address: address } %>
-            </div>
-          <% end %>
+          <div class="address-book">
+            <% @addresses.each do |address| %>
+              <% next if address == spree_current_user.bill_address %>
+              <div class="address-card">
+                <fieldset>
+                  <span class="right">
+                    <%= check_box_tag :address_ids, address.id, false, name: 'address_ids[]' %>
+                  </span>
+                  <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+                </div>
+              <% end %>
+          </div>
         </div>
       <% end %>
 
