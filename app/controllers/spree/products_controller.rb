@@ -17,8 +17,8 @@ module Spree
 
     def show
       @addresses = spree_current_user.try(:addresses) || []
-      puts spree_current_user
-      puts @addresses
+      logger.debug spree_current_user
+      logger.debug @addresses
       @address = Spree::Address.build_default
       @variants = @product.
         variants_including_master.
