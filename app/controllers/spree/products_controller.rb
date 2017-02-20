@@ -20,7 +20,7 @@ module Spree
       logger.debug "SPREE CURRENT USER"
       logger.debug spree_current_user
       logger.debug "ADDRESSES"
-      logger.debug @addresses
+      logger.debug @addresses.to_a
       @address = Spree::Address.build_default
       @variants = @product.
         variants_including_master.

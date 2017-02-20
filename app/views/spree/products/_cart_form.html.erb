@@ -41,6 +41,12 @@
           <% end %>
         </p>
       </div>
+      <%
+      logger.debug "SPREE CURRENT USER"
+      logger.debug spree_current_user
+      logger.debug "ADDRESSES"
+      logger.debug @addresses
+       %>
 
       <% if @addresses.any? %>
         <div id="select-address" class="container">
