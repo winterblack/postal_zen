@@ -2,13 +2,9 @@
   <section id="home" class="module parallax parallax-home">
     <div class="dark-back">
       <div class="container">
-        <div class="intro">
-          <h1>We deliver hassle free mail</h1>
-          <div>
-            <%= button_to 'Order Now', products_path, method: :get %>
-            <h2>100% Satisfaction Guarantee</h2>
-          </div>
-        </div>
+        <h1>We deliver hassle free mail</h1>
+        <%= button_to 'Order Now', products_path, method: :get %>
+        <h2>100% Satisfaction Guarantee</h2>
       </div>
     </div>
   </section>
@@ -74,7 +70,7 @@
       <div class="container">
         <h1>Like what you see?</h1>
         <%= button_to 'Try PostalZen', signup_path, method: :get, class: 'try' %>
-        <%= button_to 'Request a Demo', 'https://calendly.com/postalzen/product-demo', method: :get %>
+        <%= button_to 'Request a Demo', 'https://calendly.com/postalzen/product-demo', method: :get, class: 'demo' %>
       </div>
     </div>
   </section>

@@ -61,10 +61,11 @@
   }
   section.module input, button {
     font-size: 16px;
-    margin: 24px;
+    margin: calc(12.5vh - 30px);
     padding: 12px 24px;
   }
   section.module .try {
+    margin: calc(12.5vh - 30px);
     border: 2px solid white;
     border-radius: 4px;
     background: rgba(0, 0, 0, 0.6);
@@ -72,8 +73,10 @@
   section.module .try:hover {
     background: rgba(255, 255, 255, 0.6);
   }
+  section.module .demo {
+    margin: 0;
+  }
   section.module h2 {
-    padding-bottom: 40px;
     font-size: 30px;
     color: dimgray;
   }
@@ -121,14 +124,13 @@
     background-size: cover;
   }
   section.module.parallax h1 {
-    padding: 75px 0;
+    padding-top: calc(12.5vh - 30px);
     color: white;
     font-size: 30px;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     text-transform: capitalize;
   }
   section.module.parallax h2 {
-    padding: 75px 0;
     color: white;
     font-family: 'Roboto Condensed';
     font-size: 24px;
@@ -143,19 +145,8 @@
     background-image: url("home.png");
   }
   @media (max-width: 769px) {
-    section.module.parallax {
-      h1, h2 {
-        padding: 20px 0;
-      }
-    }
-    section.module input, button {
-      margin: 0;
-    }
     section.module.content p {
       font-size: 20px;
-    }
-    section.module .try {
-      margin-bottom: 20px;
     }
     section.module.content.testimonials {
       padding: 20px 0;
@@ -175,6 +166,7 @@
       font-size: 40px;
     }
     section.module.parallax h1 {
+      padding-top: calc(12.5vh - 25px);
       font-size: 45px;
     }
     section.module.parallax h2 {
@@ -183,6 +175,7 @@
   }
   @media all and (min-width: 960px) {
     section.module.parallax h1 {
+      padding-top: calc(12.5vh - 20px);
       font-size: 60px;
     }
     section.module.parallax h2 {
