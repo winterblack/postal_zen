@@ -12,6 +12,7 @@ module Spree
 
     has_many :orders
     has_many :templates
+    has_many :groups
 
     before_validation :set_login
 

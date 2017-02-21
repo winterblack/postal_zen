@@ -1,0 +1,21 @@
+<div class='sixteen columns'>
+  <h1 class='sixteen columns'>Groups</h1>
+  <table>
+    <tbody>
+      <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= link_to 'edit', edit_group_path(group) %>
+        <td><%= link_to 'delete', group, method: :delete, data:
+          { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br class='cearl'/>
+  <div>
+    <%= button_to 'New Group', new_group_path, method: :get %>
+  </div>
+  <br class="clear"/>
+</div>

@@ -1,34 +1,33 @@
 <h1 class="columns sixteen"><%= accurate_title %></h1>
-
-<fieldset id="account-summary" data-hook="account_summary">
-  <legend align="center">My Stuff</legend>
-  <div>
-    <div>
-      <%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)
-    </div>
-    <div>
-      <%= link_to 'Address Book', addresses_path %>
-    </div>
-    <div>
-      <%= link_to 'Templates', templates_path %>
-    </div>
-  </div>
-</fieldset>
-
 <div class="row">
+
   <%= form_for @user, method: :put, html: { id: "checkout_form_address" } do |f| %>
-    <div class="columns eight" data-hook="billing_fieldset_wrapper">
-      <fieldset id="billing" data-hook>
-        <%= f.fields_for :bill_address do |bill_form| %>
-          <legend align="center"><%= Spree.t(:billing_address) %></legend>
-          <%= render partial: 'spree/address/form', locals: { form: bill_form,
-            address_type: 'billing', address: @user.bill_address } %>
+  <div class="columns eight" data-hook="billing_fieldset_wrapper">
+    <fieldset id="billing" data-hook>
+      <%= f.fields_for :bill_address do |bill_form| %>
+      <legend align="center"><%= Spree.t(:billing_address) %></legend>
+      <%= render partial: 'spree/address/form', locals: { form: bill_form,
+        address_type: 'billing', address: @user.bill_address } %>
         <% end %>
         <div class="form-buttons column" data-hook="buttons">
           <%= f.submit Spree.t(:update), class: 'button primary' %>
         </div>
-    </div>
-  <% end %>
+      </div>
+      <% end %>
+
+  <div class='eight columns'>
+    <fieldset id="account-summary" data-hook="account_summary">
+      <legend align="center">My Stuff</legend>
+      <div>
+        <div>
+          <%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)
+        </div>
+        <div><%= link_to 'Address Book', addresses_path %></div>
+        <div><%= link_to 'Groups', groups_path %></div>
+        <div><%= link_to 'Templates', templates_path %></div>
+      </div>
+    </fieldset>
+  </div>
 </div>
 
 <div data-hook="account_my_orders" class="account-my-orders columns sixteen">

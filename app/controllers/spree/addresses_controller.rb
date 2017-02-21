@@ -26,36 +26,25 @@ class Spree::AddressesController < Spree::StoreController
         redirect_to addresses_url, flash: { error: 'Attach a valid CSV file'}
       end
     else
-      respond_to do |format|
-        if create_address address_params
-          format.html { redirect_to addresses_url, notice: 'Address was successfully created.' }
-          format.json { render :show, status: :created, location: @address }
-        else
-          format.html { render :new }
-          format.json { render json: @address.errors, status: :unprocessable_entity }
-        end
+      if create_address address_params
+        redirect_to addresses_url, notice: 'Address was successfully created.'
+      else
+        render :new
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @address.update(address_params)
-        format.html { redirect_to addresses_url, notice: 'Address was successfully updated.' }
-        format.json { render :show, status: :ok, location: @address }
-      else
-        format.html { render :edit }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
-      end
+    if @address.update(address_params)
+      redirect_to addresses_url, notice: 'Address was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @address.destroy
-    respond_to do |format|
-      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to addresses_url, notice: 'Address was successfully deleted.'
   end
 
   private
@@ -63,7 +52,7 @@ class Spree::AddressesController < Spree::StoreController
   def create_address address
     @address = Spree::Address.new(address)
     if spree_current_user && @address.save
-      Spree::UserAddress.create(user_id: spree_current_user.id, address_id: @address.id)
+      Spree::UserAddress.create(user: spree_current_user, address: @address)
       true
     elsif @address.save
       true

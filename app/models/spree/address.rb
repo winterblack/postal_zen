@@ -7,6 +7,8 @@ module Spree
   #
   class Address < Spree::Base
     extend ActiveModel::ForbiddenAttributesProtection
+    has_many :address_groups, dependent: :destroy
+    has_many :groups, through: :address_groups
 
     has_many :recipients
     has_many :line_items, through: :recipients

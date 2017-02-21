@@ -106,6 +106,10 @@ dl {
   }
 }
 
+.group {
+  width: 188px;
+}
+
 /*--------------------------------------*/
 /* Headers
 /*--------------------------------------*/
@@ -799,7 +803,7 @@ ul#products {
   }
 }
 
-#billing, #shipping, #shipping_method,
+#billing, #shipping, #shipping_method, #account-summary,
 #payment, #order_details, #order_summary, #return {
   margin-top: 10px;
   border: $default_border;

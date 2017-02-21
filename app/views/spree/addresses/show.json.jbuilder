@@ -1,1 +1,0 @@
-json.partial! "spree_addresses/spree_address", spree_address: @spree_address

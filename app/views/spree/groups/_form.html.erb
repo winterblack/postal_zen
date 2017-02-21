@@ -1,0 +1,37 @@
+<%= form_for(group) do |f| %>
+  <% if group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+
+      <ul>
+      <% group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <h4><%= f.label :name %></h4>
+    <%= f.text_field :name %>
+  </div>
+  <br class='clear'/>
+
+  <% @addresses.each do |address| %>
+    <% next if address == spree_current_user.bill_address %>
+    <% next if address == spree_current_user.ship_address %>
+    <% checked = (group.addresses.pluck(:id).include?(address.id)) %>
+    <div class="four columns alpha address-book">
+      <fieldset>
+        <span class='right'><%= check_box_tag :address_ids, address.id, checked,
+          name: 'address_ids[]' %></span>
+        <br>
+        <%= render :partial => 'spree/shared/address', locals: { address: address } %>
+    </div>
+  <% end %>
+  <br class='clear'>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

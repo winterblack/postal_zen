@@ -30,6 +30,7 @@
         <li><a href="#upload-address">Upload Addresses</a></li>
         <% if @addresses.any? %><li><a href="#select-address">Address Book</a></li><% end %>
         <li><a href="#new-address">New Address</a></li>
+        <% if @groups.any? %><li><a href="#select-group">Select Group</a></li><% end %>
       </ul>
 
       <div id="upload-address">
@@ -41,12 +42,6 @@
           <% end %>
         </p>
       </div>
-      <%
-      logger.debug "SPREE CURRENT USER"
-      logger.debug spree_current_user
-      logger.debug "ADDRESSES"
-      logger.debug @addresses
-       %>
 
       <% if @addresses.any? %>
         <div id="select-address" class="container">
@@ -60,6 +55,22 @@
                   </span>
                   <%= render :partial => 'spree/shared/address', locals: { address: address } %>
                 </div>
+              <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @groups.any? %>
+        <div id="select-group" class="container">
+          <div class='address-book'>
+            <% @groups.each do |group| %>
+              <div class='address-card'>
+                  <label>
+                    <span><%= check_box_tag :group_ids, group.id, false,
+                      name: 'group_ids[]' %></span>
+                    <%= group.name %>
+                  </label>
+              </div>
               <% end %>
           </div>
         </div>

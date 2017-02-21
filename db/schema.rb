@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216003423) do
+ActiveRecord::Schema.define(version: 20170221063012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "address_groups", force: :cascade do |t|
+    t.integer  "address_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_address_groups_on_address_id", using: :btree
+    t.index ["group_id"], name: "index_address_groups_on_group_id", using: :btree
+  end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -177,6 +186,14 @@ ActiveRecord::Schema.define(version: 20170216003423) do
     t.integer  "stock_location_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "spree_groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_spree_groups_on_user_id", using: :btree
   end
 
   create_table "spree_inventory_units", force: :cascade do |t|

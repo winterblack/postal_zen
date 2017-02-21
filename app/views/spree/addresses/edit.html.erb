@@ -1,5 +1,6 @@
-<h1>Edit Address</h1>
-
-<%= render 'form', address: @address %>
-
+<fieldset id="shipping" data-hook>
+  <legend align="center">Edit Address</legend>
+  <%= render 'form', address: @address %>
+</fieldset>
+<br>
 <%= link_to 'Back', addresses_path %>

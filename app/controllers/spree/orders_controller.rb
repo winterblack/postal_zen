@@ -243,6 +243,9 @@ module Spree
     def get_address_ids
       address_ids = params[:address_ids] || []
 
+      params[:group_ids].each do |group_id|
+        address_ids += Group.find(group_id).addresses.pluck(:id)
+      end
       addresses = params[:addresses]
       address_ids += import_csv(addresses) if addresses
 

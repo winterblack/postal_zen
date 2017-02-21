@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     # Contact Us Mailer
     post 'contact' => 'home#contact'
     resources :proof, only: [:show, :create]
-    resources :addresses
+    resources :addresses, except: [:show]
     resources :line_items, only: [:show]
+    resources :groups, except: [:show]
   end
 end
