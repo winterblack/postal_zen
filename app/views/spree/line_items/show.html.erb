@@ -1,4 +1,4 @@
-<div clas="columns sixteen">
+<div class="columns sixteen">
   <h2>Recipients</h2>
   <% @line_item.recipients.each do |recipient| %>
     <% address = recipient.address %>
@@ -9,6 +9,12 @@
         <%= render :partial => 'spree/shared/address', locals: { address: address } %>
       </fieldset>
     </div>
+  <% end %>
+
+  <% if spree_current_user.admin? %>
+    <div class="columns sixteen">
+      <h2>Content</h2>
+      <%= @line_item.content %>
   <% end %>
 
   <div class="columns sixteen">
