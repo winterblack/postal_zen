@@ -1,4 +1,4 @@
-class CreateSpreeGroup < ActiveRecord::Migration[5.0]
+class CreateSpreeGroups < ActiveRecord::Migration[5.0]
   def change
     create_table :spree_groups do |t|
       t.string :name
