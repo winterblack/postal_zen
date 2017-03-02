@@ -1,10 +1,6 @@
 <% variant = line_item.variant -%>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
-  <% if spree_current_user %>
-    <tr class="with-tip <%= cycle('', 'alt') %> line-item">
-  <% else %>
     <tr class="<%= cycle('', 'alt') %> line-item">
-  <% end %>
     <td class="cart-item-image" data-hook="cart_item_image">
       <% if line_item.cover.exists? %>
         <%= image_tag(line_item.cover.url) %>

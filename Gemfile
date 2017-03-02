@@ -33,10 +33,10 @@ group :production do
   gem 'rails_12factor'
 end
 
-group :development, :test do
+# group :development, :test do
   gem 'byebug', platform: :mri
   gem 'figaro'
-end
+# end
 
 group :development do
   gem 'web-console', '>= 3.3.0'

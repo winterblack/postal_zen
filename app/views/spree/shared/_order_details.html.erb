@@ -59,25 +59,45 @@
   </thead>
 
   <tbody data-hook>
-    <% order.line_items.each do |item| %>
-      <tr data-hook="order_details_line_item_row">
-        <td data-hook="order_item_image">
-          <% if item.variant.images.length == 0 %>
-            <%= link_to image_tag(item.variant.product.display_image.attachment(:small)), item.variant.product %>
+
+    <% order.line_items.each do |line_item| %>
+    <% variant = line_item.variant -%>
+        <tr class="<%= cycle('', 'alt') %> line-item">
+        <td class="cart-item-image" data-hook="cart_item_image">
+          <% if line_item.cover.exists? %>
+            <%= image_tag(line_item.cover.url) %>
+          <% elsif variant.images.length == 0 %>
+            <%= image_tag(variant.product.display_image.attachment(:small)) %>
           <% else %>
-            <%= link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product %>
+            <%= image_tag(variant.images.first.attachment.url(:small)) %>
           <% end %>
         </td>
-        <td data-hook="order_item_description">
-          <h4><%= item.variant.product.name %></h4>
-          <%= truncated_product_description(item.variant.product) %>
-          <%= "(" + item.variant.options_text + ")" unless item.variant.option_values.empty? %>
+        <td class="cart-item-description" data-hook="cart_item_description">
+          <h4><%= line_item.name %></h4>
+          <%= variant.options_text %>
+          <% if line_item.insufficient_stock? %>
+            <span class="out-of-stock">
+              <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;<br />
+            </span>
+          <% end %>
+          <div>For delivery on <%= line_item.deliver_on.strftime("%B %d, %Y") %></div>
+          <% if spree_current_user %>
+            <div><%= link_to 'Recipeints', line_item_path(line_item.id) %></div>
+          <% end %>
         </td>
-        <td data-hook="order_item_price" class="price"><span><%= item.single_money.to_html %></span></td>
-        <td data-hook="order_item_qty"><%= item.quantity %></td>
-        <td data-hook="order_item_total" class="total"><span><%= item.display_amount.to_html %></span></td>
+        <td class="cart-item-price" data-hook="cart_item_price">
+          <%= line_item.single_money.to_html %>
+        </td>
+        <td class="cart-item-quantity" data-hook="cart_item_quantity">
+          <%= line_item.quantity %>
+        </td>
+        <td colspan='2' class="cart-item-total" data-hook="cart_item_total">
+          <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>
+        </td>
       </tr>
+
     <% end %>
+
   </tbody>
   <tfoot id="order-total" data-hook="order_details_total">
     <tr class="total">

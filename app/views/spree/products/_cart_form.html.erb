@@ -35,7 +35,7 @@
 
       <div id="upload-address">
         <p>
-          <%= file_field_tag :addresses %>
+          <%= file_field_tag :addresses, accept: '.csv' %>
           <% if spree_current_user %>
             <%= check_box_tag :save_to_address_book, true, false, id: 'save' %>
             <%= label_tag :save_to_address_book, nil, for: 'save' %>
