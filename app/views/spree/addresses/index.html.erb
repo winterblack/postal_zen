@@ -23,7 +23,7 @@
     <legend align="center">CSV Upload</legend>
     <%= form_tag({ action: :create, controller: 'spree/addresses', method: :post }, { multipart: true }) do %>
       <p class="field">
-        <%= file_field_tag :addresses %>
+        <%= file_field_tag :addresses, accept: '.csv' %>
       </p>
       <p>
         <%= submit_tag 'CSV Upload' %>

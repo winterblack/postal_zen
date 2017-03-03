@@ -91,7 +91,7 @@ class Spree::AddressesController < Spree::StoreController
     CSV.foreach(addresses.path, headers: true) do |row|
       address_attributes = row.to_hash
       # Find the country and state ids
-      country = find_country(address_attributes['country']) || Country.find(232)
+      country = find_country(address_attributes['country']) || Spree::Country.find(232)
       state = find_state(address_attributes['state'], country.id)
       address_attributes[:country_id] = country.try(:id)
       address_attributes[:state_id] = state.try(:id)
