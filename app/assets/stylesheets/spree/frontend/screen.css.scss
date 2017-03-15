@@ -560,24 +560,6 @@ ul#products {
       }
     }
 
-    .product-image {
-      position: relative;
-      overflow: hidden;
-      padding-bottom:100%;
-      border: $default_border;
-
-      img {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        object-fit: cover;
-      }
-
-    }
-
     .price {
       color: $link_text_color;
       font-size: $product_list_price_font_size;
@@ -624,19 +606,8 @@ ul#products {
 
 #product-images {
   #main-image {
-    position: relative;
-    overflow: hidden;
-    padding-bottom:100%;
-    border: $default_border;
-
     img {
-      position: absolute;
-      height: 100%;
       width: 100%;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%) translateY(-50%);
-      object-fit: cover;
     }
   }
   #product-thumbnails {
