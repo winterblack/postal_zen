@@ -15,6 +15,7 @@ gem 'wysiwyg-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'lob'
+gem 'fog'
 
 gem 'rake'
 gem 'rails', '~> 5.0.1'
