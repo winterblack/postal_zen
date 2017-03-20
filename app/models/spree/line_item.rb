@@ -9,11 +9,13 @@ module Spree
   #
   class LineItem < Spree::Base
     has_attached_file :cover, styles: { postcard: '1875x1275!' },
+                      storage: :filesystem,
                       url: '/spree/line_items/:id/:style/:basename.:extension',
                       path: ':rails_root/public/spree/line_items/:id/:style/:basename.:extension'
     validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
     has_attached_file :content_file,
+                      storage: :filesystem,
                       url: '/spree/line_items/:id/content/:basename.:extension',
                       path: ':rails_root/public/spree/line_items/:id/content/:basename.:extension'
     validates_attachment_content_type :content_file, content_type: /\Aapplication\/pdf/
