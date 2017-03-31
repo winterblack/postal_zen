@@ -5,6 +5,13 @@
 <!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
 <!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
   <head data-hook="inside_head">
+    <script id="fr-fek">
+      try {( function (k){
+        localStorage.FEK=k
+        t=document.getElementById('fr-fek')
+        t.parentNode.removeChild(t)
+      })('2fxkmB-11wfxpE2cno==')}catch(e){}
+    </script>
     <%= render :partial => 'spree/shared/head' %>
   </head>
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
